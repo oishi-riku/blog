@@ -1,0 +1,47 @@
+@use './var';
+
+@mixin hover() {
+  &:hover,
+  &:active,
+  &:focus {
+    @content;
+  }
+}
+
+@mixin mq-pc() {
+  @media screen and (min-width: var.$break-point) {
+    @content;
+  }
+}
+
+@mixin mq-sp() {
+  @media screen and (max-width: var.$break-point - 1px) {
+    @content;
+  }
+}
+
+@mixin last-mb0() {
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+@mixin content-width {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var.$side-gutter;
+  padding-left: var.$side-gutter;
+  width: 100%;
+  max-width: var.$content-width + (var.$side-gutter * 2);
+}
+
+@mixin pseudo {
+  content: '';
+  display: block;
+}
+
+@mixin pseudo-absolute {
+  @include pseudo();
+
+  position: absolute;
+}

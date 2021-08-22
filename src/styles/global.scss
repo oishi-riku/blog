@@ -1,0 +1,28 @@
+@use '@styles/define/define';
+
+html {
+  color: define.$font-color;
+  font-family: define.$font-family;
+  line-height: 1.75;
+}
+
+body {
+  @include define.mq-pc {
+    font-size: define.rem(18);
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
