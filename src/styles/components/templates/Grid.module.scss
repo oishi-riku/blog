@@ -1,0 +1,46 @@
+@use '@styles/define/define';
+
+.root {
+  display: grid;
+  gap: define.spacing(2);
+
+  &[data-col="1"] {
+    grid-template-columns: 1fr;
+  }
+
+  @include define.mq-pc {
+    &[data-col-pc="1"] {
+      grid-template-columns: 1fr;
+    }
+  };
+
+  &[data-col="2"] {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include define.mq-pc {
+    &[data-col-pc="2"] {
+      grid-template-columns: 1fr 1fr;
+    }
+  };
+
+  &[data-col="3"] {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @include define.mq-pc {
+    &[data-col-pc="3"] {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  };
+
+  &[data-col="4"] {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  @include define.mq-pc {
+    &[data-col-pc="4"] {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  };
+}

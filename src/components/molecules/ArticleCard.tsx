@@ -24,7 +24,9 @@ const ArticleCard: FC<Props> = ({ title, date, name, content, href }) => {
               <span>{name}</span>
             </div>
           </div>
-          <TypographyRowControl maxRow={2}>{content}</TypographyRowControl>
+          <div className={styles.body}>
+            <TypographyRowControl maxRow={2}>{content}</TypographyRowControl>
+          </div>
           <div className={styles.foot}>続きを読む</div>
         </a>
       </Link>

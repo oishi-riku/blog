@@ -2,7 +2,9 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Layout from '@components/templates/Layout';
 import Container from '@src/components/templates/Container';
+import Grid from '@src/components/templates/Grid';
 import ArticleCard from '@components/molecules/ArticleCard';
+import Heading from '@components/atoms/Heading';
 
 const Home: NextPage = () => {
   return (
@@ -14,14 +16,51 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <Container>
-          <h1>test</h1>
-          <ArticleCard
-            title={'test'}
-            date={'2021/03/21'}
-            name="大石"
-            content="test test"
-            href="/"
-          />
+          <Heading level={1} align="center">
+            9人
+          </Heading>
+          <Grid
+            col={1}
+            colPc={2}
+            items={[
+              {
+                id: '1',
+                item: (
+                  <ArticleCard
+                    title={'test'}
+                    date={'2021/03/21'}
+                    name="大石"
+                    content="test test"
+                    href="/"
+                  />
+                ),
+              },
+              {
+                id: '2',
+                item: (
+                  <ArticleCard
+                    title={'test'}
+                    date={'2021/03/21'}
+                    name="大石"
+                    content="test test"
+                    href="/"
+                  />
+                ),
+              },
+              {
+                id: '3',
+                item: (
+                  <ArticleCard
+                    title={'test'}
+                    date={'2021/03/21'}
+                    name="大石"
+                    content="test test"
+                    href="/"
+                  />
+                ),
+              },
+            ]}
+          ></Grid>
         </Container>
       </Layout>
     </>
