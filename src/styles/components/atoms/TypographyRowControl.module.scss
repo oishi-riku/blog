@@ -4,9 +4,18 @@
   white-space: 'pre-line';
   display: '-webkit-box';
   -webkit-box-orient: 'vertical';
-  -webkit-line-clamp: 3;
   overflow: 'hidden';
-  @include define.mq-pc {
-    -webkit-line-clamp: 4;
-  };
+
+  @for $i from 1 through 5 {
+    &[data-row="#{$i}"] {
+      -webkit-line-clamp: $i;
+    }
+
+    @include define.mq-pc {
+      &[data-row-pc="#{$i}"] {
+        -webkit-line-clamp: $i;
+      }
+    };
+  }
+
 }

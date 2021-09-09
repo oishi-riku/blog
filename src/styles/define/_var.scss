@@ -1,16 +1,20 @@
-$break-point: 768px;
-$side-gutter: 20px;
-$content-width: 1240px;
+$breakPoint: 768px;
+$sideGutter: 20px;
+$contentWidth: 1240px;
 
-$font-color: #333333;
-$font-family: "Roboto","Noto Sans JP",sans-serif;
-$font-size: 16;
+$fontColor: #333333;
+$fontFamily: "Roboto","Noto Sans JP",sans-serif;
+$fontSizeH1: 28;
+$fontSizeH2: 24;
+$fontSizeH3: 18;
+$fontSizeH4: 16;
+$fontSizeBody1: 16;
+$fontSizeBody2: 14;
+$fontSizeOverline: 12;
 
-$gradation: transparent linear-gradient(90deg, #45eca7 0%, #5bd7f4 100%) 0% 0% no-repeat padding-box;
-$gradation-to-bottom: transparent linear-gradient(180deg, #45eca7 0%, #5bd7f4 100%) 0% 0% no-repeat padding-box;
-$gradation-hover: transparent linear-gradient(90deg, #5bd7f4 0%, #45eca7 100%, #77ecd0 100%, #7df2c5 100%) 0% 0% no-repeat padding-box;
-$grey1: #f2f7f3;
+$grey1: #aaa;
 $grey2: #dae6e6;
-$light-blue: #41cbeb;
 
 $duration: 0.4s;
+
+$space: 8;

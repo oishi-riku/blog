@@ -9,13 +9,13 @@
 }
 
 @mixin mq-pc() {
-  @media screen and (min-width: var.$break-point) {
+  @media screen and (min-width: var.$breakPoint) {
     @content;
   }
 }
 
 @mixin mq-sp() {
-  @media screen and (max-width: var.$break-point - 1px) {
+  @media screen and (max-width: var.$breakPoint - 1px) {
     @content;
   }
 }
@@ -29,10 +29,10 @@
 @mixin content-width {
   margin-right: auto;
   margin-left: auto;
-  padding-right: var.$side-gutter;
-  padding-left: var.$side-gutter;
+  padding-right: var.$sideGutter;
+  padding-left: var.$sideGutter;
   width: 100%;
-  max-width: var.$content-width + (var.$side-gutter * 2);
+  max-width: var.$contentWidth + (var.$sideGutter * 2);
 }
 
 @mixin pseudo {

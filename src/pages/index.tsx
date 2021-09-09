@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Layout from '@components/templates/Layout';
 import Container from '@src/components/templates/Container';
-// import ArticleCard from '@components/atoms/ArticleCard';
+import ArticleCard from '@components/molecules/ArticleCard';
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +15,13 @@ const Home: NextPage = () => {
       <Layout>
         <Container>
           <h1>test</h1>
-          {/* <ArticleCard /> */}
+          <ArticleCard
+            title={'test'}
+            date={'2021/03/21'}
+            name="大石"
+            content="test test"
+            href="/"
+          />
         </Container>
       </Layout>
     </>
