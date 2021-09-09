@@ -1,11 +1,12 @@
 import { FC } from 'react';
 
+import Header from '@components/organisms/Header';
 import Footer from '@components/organisms/Footer';
 
 const Layout: FC = ({ children }) => {
   return (
     <>
-      <header>test</header>
+      <Header />
       <main>{children}</main>
       <Footer />
     </>

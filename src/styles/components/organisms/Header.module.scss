@@ -1,0 +1,22 @@
+@use '@styles/define/define';
+
+.root {
+  position: sticky;
+  top: 0;
+}
+
+.inner {
+  display: flex;
+  justify-content: flex-end;
+  padding: define.spacing(1) 0;
+}
+
+.menuBtn {
+  padding: define.spacing(0.5) define.spacing(1);
+  font-size: define.rem(define.$fontSizeBody2);
+  transition: opacity define.$duration;
+
+  @include define.hover {
+    opacity: 0.6;
+  }
+}
