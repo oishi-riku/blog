@@ -1,0 +1,9 @@
+@use "./var";
+
+@function rem($pixel) {
+  @return $pixel / var.$fontSizeBody1 * 1rem;
+}
+
+@function spacing($level) {
+  @return var.$space * $level * 1px;
+}

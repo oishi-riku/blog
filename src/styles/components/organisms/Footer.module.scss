@@ -1,0 +1,8 @@
+@use '@styles/define/define';
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: define.spacing(2) define.spacing(1);
+}

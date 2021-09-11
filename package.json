@@ -1,22 +1,45 @@
 {
-  "name": "blog",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "11.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "@types/react": "17.0.18",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.0",
-    "typescript": "4.3.5"
-  }
+    "name": "blog",
+    "version": "0.1.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://https://github.com/oishi-riku/blog.git"
+    },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "lint-staged": "lint-staged --no-stash",
+        "prepare": "husky install"
+    },
+    "lint-staged": {
+        "**/*.{ts,tsx}": [
+            "npm run lint"
+        ]
+    },
+    "browserslist": [
+        "last 2 Chrome versions",
+        "last 2 Edge versions",
+        "last 2 Firefox versions",
+        "last 2 Safari versions",
+        "last 2 iOS versions",
+        "last 2 Android major versions"
+    ],
+    "dependencies": {
+        "next": "11.1.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "ress": "^4.0.0",
+        "sass": "^1.38.0"
+    },
+    "devDependencies": {
+        "@types/react": "17.0.18",
+        "eslint": "7.32.0",
+        "eslint-config-next": "11.1.0",
+        "husky": "^7.0.0",
+        "lint-staged": "^11.1.2",
+        "typescript": "4.3.5"
+    }
 }
