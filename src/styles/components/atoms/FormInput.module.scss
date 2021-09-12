@@ -1,0 +1,20 @@
+@use '@styles/define/define';
+
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  @at-root [data-is-error="true"] & {
+    border-color: define.$red;
+  }
+}
+
+.helperText {
+  color: define.$grey2;
+  font-size: define.rem(define.$fontSizeOverline);
+  @at-root [data-is-error="true"] & {
+    color: define.$red;
+  }
+}

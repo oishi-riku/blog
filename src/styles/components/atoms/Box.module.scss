@@ -1,0 +1,83 @@
+@use '@styles/define/define';
+
+.root {
+  &[data-display="flex"] {
+    display: flex;
+  }
+  &[data-display="block"] {
+    display: block;
+  }
+  &[data-display="inline"] {
+    display: inline;
+  }
+  &[data-display="inline-block"] {
+    display: inline-block;
+  }
+
+  &[data-direction="row"] {
+    flex-direction: row;
+  }
+  &[data-direction="row-reverse"] {
+    flex-direction: row-reverse;
+  }
+  &[data-direction="column"] {
+    flex-direction: column;
+  }
+  &[data-direction="column-reverse"] {
+    flex-direction: column-reverse;
+  }
+
+  &[data-align="center"] {
+    align-items: center;
+  }
+  &[data-align="top"] {
+    align-items: flex-start;
+  }
+  &[data-align="bottom"] {
+    align-items: flex-end;
+  }
+
+  &[data-justify="center"] {
+    justify-content: center;
+  }
+  &[data-justify="left"] {
+    justify-content: left;
+  }
+  &[data-justify="right"] {
+    justify-content: right;
+  }
+
+  @for $i from 1 through 10 {
+    &[data-m="#{$i}"] {
+      margin: define.spacing($i);
+    }
+    &[data-mt="#{$i}"] {
+      margin-top: define.spacing($i);
+    }
+    &[data-mr="#{$i}"] {
+      margin-right: define.spacing($i);
+    }
+    &[data-mb="#{$i}"] {
+      margin-bottom: define.spacing($i);
+    }
+    &[data-ml="#{$i}"] {
+      margin-left: define.spacing($i);
+    }
+
+    &[data-p="#{$i}"] {
+      padding: define.spacing($i);
+    }
+    &[data-pt="#{$i}"] {
+      padding-top: define.spacing($i);
+    }
+    &[data-pr="#{$i}"] {
+      padding-right: define.spacing($i);
+    }
+    &[data-pb="#{$i}"] {
+      padding-bottom: define.spacing($i);
+    }
+    &[data-pl="#{$i}"] {
+      padding-left: define.spacing($i);
+    }
+  }
+}

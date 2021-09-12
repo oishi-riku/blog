@@ -1,10 +1,12 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Layout from '@components/templates/Layout';
-import Container from '@src/components/templates/Container';
-import Grid from '@src/components/templates/Grid';
+import Container from '@components/templates/Container';
+import Grid from '@components/templates/Grid';
 import ArticleCard from '@components/molecules/ArticleCard';
 import Heading from '@components/atoms/Heading';
+import ButtonLink from '@components/atoms/ButtonLink';
+import Box from '@components/atoms/Box';
 import { getAllArticles } from '@domains/microCMS/services/article';
 import { Articles } from '@domains/microCMS/models/article';
 
@@ -24,6 +26,15 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
           <Heading level={1} align="center">
             9人
           </Heading>
+          <Box display="flex" justify="right" mb={2}>
+            <ButtonLink
+              href="/articles/new/"
+              variant="contained"
+              color="primary"
+            >
+              新規作成
+            </ButtonLink>
+          </Box>
           <Grid
             col={1}
             colPc={2}

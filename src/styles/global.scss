@@ -1,12 +1,13 @@
 @use '@styles/define/define';
 
 html {
-  color: define.$fontColor;
+  color: define.$black;
   font-family: define.$fontFamily;
   line-height: 1.75;
 }
 
 body {
+  background-color: define.$grey0;
   @include define.mq-pc {
     font-size: define.rem(define.$fontSizeBody1);
   }
@@ -25,4 +26,33 @@ img {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+input, textarea, select {
+  padding: define.spacing(0.5) define.spacing(1);
+  background-color: define.$white;
+  border: 1px solid define.$grey1;
+  border-radius: 4px;
+  color: inherit;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  line-height: 1.2;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: define.rem(define.$fontSizeH1);
+}
+
+h2 {
+  font-size: define.rem(define.$fontSizeH2);
+}
+
+h3 {
+  font-size: define.rem(define.$fontSizeH3);
+}
+
+h4 {
+  font-size: define.rem(define.$fontSizeH4);
 }

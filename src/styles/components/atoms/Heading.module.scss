@@ -20,19 +20,9 @@
   margin-bottom: define.spacing(4);
 }
 
-.heading1Text {
-  font-size: define.rem(define.$fontSizeH1);
-  line-height: 1.2;
-}
-
 .heading2 {
   margin-bottom: define.spacing(3);
   margin-bottom: define.spacing(2);
-}
-
-.heading2Text {
-  font-size: define.rem(define.$fontSizeH2);
-  line-height: 1.2;
 }
 
 .heading3 {
@@ -40,16 +30,6 @@
   margin-bottom: define.spacing(1);
 }
 
-.heading3Text {
-  font-size: define.rem(define.$fontSizeH3);
-  line-height: 1.2;
-}
-
 .heading4 {
   margin-bottom: define.spacing(1);
-}
-
-.heading4Text {
-  font-size: define.rem(define.$fontSizeH4);
-  line-height: 1.2;
 }
