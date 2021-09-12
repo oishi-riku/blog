@@ -21,6 +21,7 @@
         "@pages/*": ["./src/pages/*"],
         "@styles/*": ["./src/styles/*"],
         "@domains/*": ["src/domains/*"],
+        "@validation/*": ["src/validation/*"],
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -9,8 +9,17 @@ import FormSelect from '@components/atoms/FormSelect';
 import Button from '@components/atoms/Button';
 import ButtonLink from '@components/atoms/ButtonLink';
 import Box from '@components/atoms/Box';
+import { Input, scheme } from '@validation/article';
 
-const NewArticle: NextPage = () => {
+import { useForm, Control, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+type Props = {
+  control: Control<Input>;
+  handleSubmit: () => void;
+};
+
+const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
   return (
     <>
       <Head>
@@ -20,34 +29,77 @@ const NewArticle: NextPage = () => {
       <Layout>
         <Container>
           <Heading level={1}>新規作成</Heading>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Box mb={2}>
-              <FormInput id="title" type="text" label="タイトル" />
+              <Controller
+                name="title"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <FormInput
+                    id={field.name}
+                    type="text"
+                    label="タイトル"
+                    value={field.value}
+                    helperText={fieldState.error?.message ?? ''}
+                    isError={!!fieldState.error?.message}
+                    handleChange={field.onChange}
+                  />
+                )}
+              />
             </Box>
             <Box mb={2}>
-              <FormTextarea id="content" label="本文" row={12} />
+              <Controller
+                name="content"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <FormTextarea
+                    id={field.name}
+                    label="本文"
+                    value={field.value}
+                    row={12}
+                    helperText={fieldState.error?.message ?? ''}
+                    isError={!!fieldState.error?.message}
+                    handleChange={field.onChange}
+                  />
+                )}
+              />
             </Box>
             <Box mb={2}>
-              <FormSelect
-                id="next"
-                label="次の人"
-                options={[
-                  {
-                    id: '1',
-                    value: 'michihito',
-                    text: 'みちひと',
-                  },
-                  {
-                    id: '2',
-                    value: 'sawaki',
-                    text: 'さわき',
-                  },
-                  {
-                    id: '3',
-                    value: 'takuya',
-                    text: 'たくや',
-                  },
-                ]}
+              <Controller
+                name="next"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <FormSelect
+                    id={field.name}
+                    label="次の人"
+                    value={field.value}
+                    handleChange={field.onChange}
+                    helperText={fieldState.error?.message ?? ''}
+                    isError={!!fieldState.error?.message}
+                    options={[
+                      {
+                        id: '0',
+                        value: '',
+                        text: '',
+                      },
+                      {
+                        id: '1',
+                        value: 'michihito',
+                        text: 'みちひと',
+                      },
+                      {
+                        id: '2',
+                        value: 'sawaki',
+                        text: 'さわき',
+                      },
+                      {
+                        id: '3',
+                        value: 'takuya',
+                        text: 'たくや',
+                      },
+                    ]}
+                  />
+                )}
               />
             </Box>
             <Box display="flex" direction="row-reverse" justify="right">
@@ -67,4 +119,22 @@ const NewArticle: NextPage = () => {
   );
 };
 
-export default NewArticle;
+const EnhancedNewArticle: NextPage = () => {
+  const { handleSubmit, control } = useForm<Input>({
+    defaultValues: {
+      name: '',
+      title: '',
+      content: '',
+      next: '',
+    },
+    resolver: yupResolver(scheme),
+  });
+
+  const _handleSubmit = handleSubmit((payload) => {
+    console.log(payload);
+  });
+
+  return <NewArticle control={control} handleSubmit={_handleSubmit} />;
+};
+
+export default EnhancedNewArticle;

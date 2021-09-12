@@ -4,3 +4,17 @@
   display: flex;
   flex-direction: column;
 }
+
+.textarea {
+  @at-root [data-is-error="true"] & {
+    border-color: define.$red;
+  }
+}
+
+.helperText {
+  color: define.$grey2;
+  font-size: define.rem(define.$fontSizeOverline);
+  @at-root [data-is-error="true"] & {
+    color: define.$red;
+  }
+}
