@@ -1,4 +1,10 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useForm, Control, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Input, scheme } from '@validation/article';
+import { createArticle } from '@domains/microCMS/services/article';
+
 import Head from 'next/head';
 import Layout from '@components/templates/Layout';
 import Container from '@src/components/templates/Container';
@@ -9,10 +15,6 @@ import FormSelect from '@components/atoms/FormSelect';
 import Button from '@components/atoms/Button';
 import ButtonLink from '@components/atoms/ButtonLink';
 import Box from '@components/atoms/Box';
-import { Input, scheme } from '@validation/article';
-
-import { useForm, Control, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 type Props = {
   control: Control<Input>;
@@ -120,6 +122,7 @@ const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
 };
 
 const EnhancedNewArticle: NextPage = () => {
+  const router = useRouter();
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
       name: '',
@@ -130,8 +133,13 @@ const EnhancedNewArticle: NextPage = () => {
     resolver: yupResolver(scheme),
   });
 
-  const _handleSubmit = handleSubmit((payload) => {
-    console.log(payload);
+  const _handleSubmit = handleSubmit(async (payload) => {
+    try {
+      await createArticle(payload);
+      router.push('/');
+    } catch (error) {
+      window.alert('エラーが発生しました。');
+    }
   });
 
   return <NewArticle control={control} handleSubmit={_handleSubmit} />;
