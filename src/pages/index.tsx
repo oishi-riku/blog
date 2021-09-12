@@ -27,7 +27,11 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
             9人
           </Heading>
           <Box display="flex" justify="right" mb={2}>
-            <ButtonLink href="/articles/new" color="primary">
+            <ButtonLink
+              href="/articles/new/"
+              variant="contained"
+              color="primary"
+            >
               新規作成
             </ButtonLink>
           </Box>

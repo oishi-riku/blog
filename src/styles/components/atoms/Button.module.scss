@@ -1,0 +1,66 @@
+@use '@styles/define/define';
+
+.root {
+  display: inline-block;
+}
+
+.link {
+  display: block;
+  padding: define.spacing(0.5) define.spacing(1);
+  min-width: 100px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: define.rem(define.$fontSizeBody2);
+  transition: opacity define.$duration;
+
+  @include define.hover {
+    opacity: 0.6;
+  }
+
+  &[data-variant="outlined"] {
+    border: 1px solid define.$grey2;
+    background-color: define.$white;
+
+    &[data-color="primary"] {
+      color: define.$primaryMain;
+      &[data-weight="dark"] {
+        color: define.$primaryDark;
+      }
+      &[data-weight="light"] {
+        color: define.$primaryLight;
+      }
+    }
+    &[data-color="secondary"] {
+      color: define.$secondaryMain;
+      &[data-weight="dark"] {
+        color: define.$secondaryDark;
+      }
+      &[data-weight="light"] {
+        color: define.$secondaryLight;
+      }
+    }
+  }
+
+  &[data-variant="contained"] {
+    color: define.$white;
+
+    &[data-color="primary"] {
+      background-color: define.$primaryMain;
+      &[data-weight="dark"] {
+        background-color: define.$primaryDark;
+      }
+      &[data-weight="light"] {
+        background-color: define.$primaryLight;
+      }
+    }
+    &[data-color="secondary"] {
+      background-color: define.$secondaryMain;
+      &[data-weight="dark"] {
+        background-color: define.$secondaryDark;
+      }
+      &[data-weight="light"] {
+        background-color: define.$secondaryLight;
+      }
+    }
+  }
+}

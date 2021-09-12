@@ -1,19 +1,21 @@
 import { FC } from 'react';
 import Link from 'next/link';
-import styles from '@styles/components/atoms/ButtonLink.module.scss';
+import styles from '@styles/components/atoms/Button.module.scss';
 
 type Props = {
   href: string;
+  variant: 'outlined' | 'contained';
   color: 'primary' | 'secondary';
-  weight?: 'main' | 'dark' | 'light';
+  weight?: 'dark' | 'light';
 };
 
-const ButtonLink: FC<Props> = ({ children, href, color, weight }) => {
+const ButtonLink: FC<Props> = ({ children, href, variant, color, weight }) => {
   return (
     <div className={styles.root}>
       <Link href={href}>
         <a
           className={styles.link}
+          data-variant={variant}
           data-color={color}
           data-weight={weight ? weight : null}
         >
