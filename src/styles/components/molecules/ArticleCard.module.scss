@@ -2,7 +2,8 @@
 
 .root {
   height: 100%;
-  box-shadow: 1px 1px 4px 2px rgba($color: #333, $alpha: 0.4);
+  background-color: define.$white;
+  box-shadow: 1px 1px 4px 2px rgba($color: define.$black, $alpha: 0.4);
 }
 
 .link {
@@ -31,7 +32,7 @@
   display: flex;
   gap: define.spacing(1);
   font-size: define.rem(define.$fontSizeOverline);
-  color: define.$grey1;
+  color: define.$primaryLight;
 }
 
 .body {

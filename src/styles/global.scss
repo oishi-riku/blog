@@ -1,12 +1,13 @@
 @use '@styles/define/define';
 
 html {
-  color: define.$fontColor;
+  color: define.$black;
   font-family: define.$fontFamily;
   line-height: 1.75;
 }
 
 body {
+  background-color: define.$grey0;
   @include define.mq-pc {
     font-size: define.rem(define.$fontSizeBody1);
   }
