@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Layout from '@components/templates/Layout';
-import Container from '@src/components/templates/Container';
+import Container from '@components/templates/Container';
 import Heading from '@components/atoms/Heading';
 import { getArticle, getAllArticles } from '@domains/microCMS/services/article';
 import { Article as ArticleSingle } from '@domains/microCMS/models/article';

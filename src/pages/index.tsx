@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Layout from '@components/templates/Layout';
-import Container from '@src/components/templates/Container';
-import Grid from '@src/components/templates/Grid';
+import Container from '@components/templates/Container';
+import Grid from '@components/templates/Grid';
 import ArticleCard from '@components/molecules/ArticleCard';
 import Heading from '@components/atoms/Heading';
 import ButtonLink from '@components/atoms/ButtonLink';

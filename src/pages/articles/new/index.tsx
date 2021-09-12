@@ -7,7 +7,7 @@ import { createArticle } from '@domains/microCMS/services/article';
 
 import Head from 'next/head';
 import Layout from '@components/templates/Layout';
-import Container from '@src/components/templates/Container';
+import Container from '@components/templates/Container';
 import Heading from '@components/atoms/Heading';
 import FormInput from '@components/atoms/FormInput';
 import FormTextarea from '@components/atoms/FormTextarea';

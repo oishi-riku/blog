@@ -63,5 +63,21 @@
     &[data-ml="#{$i}"] {
       margin-left: define.spacing($i);
     }
+
+    &[data-p="#{$i}"] {
+      padding: define.spacing($i);
+    }
+    &[data-pt="#{$i}"] {
+      padding-top: define.spacing($i);
+    }
+    &[data-pr="#{$i}"] {
+      padding-right: define.spacing($i);
+    }
+    &[data-pb="#{$i}"] {
+      padding-bottom: define.spacing($i);
+    }
+    &[data-pl="#{$i}"] {
+      padding-left: define.spacing($i);
+    }
   }
 }
