@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Container from '@src/components/templates/Container';
+import Container from '@components/templates/Container';
 
 import styles from '@styles/components/organisms/Header.module.scss';
 
