@@ -1,10 +1,10 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { Container, Typography } from '@mui/material';
+
 import Head from 'next/head';
-import Layout from '@components/templates/Layout';
-import Container from '@components/templates/Container';
-import Heading from '@components/atoms/Heading';
-import { getArticle, getAllArticles } from '@domains/microCMS/services/article';
-import { Article as ArticleSingle } from '@domains/microCMS/models/article';
+import Layout from 'components/templates/Layout';
+import { getArticle, getAllArticles } from 'domains/microCMS/services/article';
+import { Article as ArticleSingle } from 'domains/microCMS/models/article';
 
 type StaticProps = {
   article: ArticleSingle;
@@ -20,7 +20,7 @@ const Article: NextPage<StaticProps> = ({ article }) => {
       <Layout>
         <Container>
           <article>
-            <Heading level={1}>{article.title}</Heading>
+            <Typography variant="h1">{article.title}</Typography>
           </article>
         </Container>
       </Layout>

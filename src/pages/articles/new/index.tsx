@@ -1,20 +1,27 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
+import {
+  Container,
+  Button,
+  Typography,
+  Box,
+  Paper,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormHelperText,
+  FormControl,
+} from '@mui/material';
+
 import { useRouter } from 'next/router';
 import { useForm, Control, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, scheme } from '@validation/article';
-import { createArticle } from '@domains/microCMS/services/article';
+import { Input, scheme } from 'validation/article';
+import { createArticle } from 'domains/microCMS/services/article';
 
 import Head from 'next/head';
-import Layout from '@components/templates/Layout';
-import Container from '@components/templates/Container';
-import Heading from '@components/atoms/Heading';
-import FormInput from '@components/atoms/FormInput';
-import FormTextarea from '@components/atoms/FormTextarea';
-import FormSelect from '@components/atoms/FormSelect';
-import Button from '@components/atoms/Button';
-import ButtonLink from '@components/atoms/ButtonLink';
-import Box from '@components/atoms/Box';
+import Layout from 'components/templates/Layout';
 
 type Props = {
   control: Control<Input>;
@@ -30,89 +37,96 @@ const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
       </Head>
       <Layout>
         <Container>
-          <Heading level={1}>新規作成</Heading>
+          <Typography variant="h1" sx={{ mb: 5 }}>
+            新規作成
+          </Typography>
           <form onSubmit={handleSubmit}>
-            <Box mb={2}>
+            <Paper
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                mb: 3,
+                p: 2,
+              }}
+            >
               <Controller
                 name="title"
                 control={control}
                 render={({ field, fieldState }) => (
-                  <FormInput
+                  <TextField
                     id={field.name}
                     type="text"
                     label="タイトル"
                     value={field.value}
+                    size="small"
+                    fullWidth
                     helperText={fieldState.error?.message ?? ''}
-                    isError={!!fieldState.error?.message}
-                    handleChange={field.onChange}
+                    error={!!fieldState.error?.message}
+                    onChange={field.onChange}
                   />
                 )}
               />
-            </Box>
-            <Box mb={2}>
               <Controller
                 name="content"
                 control={control}
                 render={({ field, fieldState }) => (
-                  <FormTextarea
+                  <TextField
                     id={field.name}
                     label="本文"
                     value={field.value}
-                    row={12}
+                    size="small"
+                    fullWidth
+                    multiline
+                    rows={15}
                     helperText={fieldState.error?.message ?? ''}
-                    isError={!!fieldState.error?.message}
-                    handleChange={field.onChange}
+                    error={!!fieldState.error?.message}
+                    onChange={field.onChange}
                   />
                 )}
               />
-            </Box>
-            <Box mb={2}>
               <Controller
                 name="next"
                 control={control}
                 render={({ field, fieldState }) => (
-                  <FormSelect
-                    id={field.name}
-                    label="次の人"
-                    value={field.value}
-                    handleChange={field.onChange}
-                    helperText={fieldState.error?.message ?? ''}
-                    isError={!!fieldState.error?.message}
-                    options={[
-                      {
-                        id: '0',
-                        value: '',
-                        text: '',
-                      },
-                      {
-                        id: '1',
-                        value: 'michihito',
-                        text: 'みちひと',
-                      },
-                      {
-                        id: '2',
-                        value: 'sawaki',
-                        text: 'さわき',
-                      },
-                      {
-                        id: '3',
-                        value: 'takuya',
-                        text: 'たくや',
-                      },
-                    ]}
-                  />
+                  <FormControl
+                    size="small"
+                    fullWidth
+                    error={!!fieldState.error?.message}
+                  >
+                    <InputLabel>次の人</InputLabel>
+                    <Select
+                      id={field.name}
+                      label="次の人"
+                      onChange={field.onChange}
+                      value={field.value}
+                    >
+                      <MenuItem value={1}>みちひと</MenuItem>
+                      <MenuItem value={2}>さわき</MenuItem>
+                      <MenuItem value={3}>たくや</MenuItem>
+                    </Select>
+                    <FormHelperText>
+                      {fieldState.error?.message ?? ''}
+                    </FormHelperText>
+                  </FormControl>
                 )}
               />
-            </Box>
-            <Box display="flex" direction="row-reverse" justify="right">
+            </Paper>
+            <Box
+              display="flex"
+              flexDirection="row-reverse"
+              justifyContent="right"
+            >
               <Box ml={1}>
                 <Button variant="contained" color="primary" type="submit">
                   保存
                 </Button>
               </Box>
-              <ButtonLink variant="outlined" color="primary" href="/">
-                キャンセル
-              </ButtonLink>
+              <Link href="/" passHref>
+                <Button variant="outlined" color="primary">
+                  キャンセル
+                </Button>
+              </Link>
             </Box>
           </form>
         </Container>

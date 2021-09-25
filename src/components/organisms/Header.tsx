@@ -1,19 +1,15 @@
 import { FC } from 'react';
-import Container from '@components/templates/Container';
-
-import styles from '@styles/components/organisms/Header.module.scss';
+import { AppBar, Container, Box, Button } from '@mui/material';
 
 const Header: FC = () => {
   return (
-    <header className={styles.root}>
+    <AppBar position="sticky">
       <Container>
-        <div className={styles.inner}>
-          <button className={styles.menuBtn} type="button">
-            大石陸
-          </button>
-        </div>
+        <Box display="flex" py={0.5} justifyContent="flex-end">
+          <Button sx={{ color: 'common.white' }}>大石陸</Button>
+        </Box>
       </Container>
-    </header>
+    </AppBar>
   );
 };
 

@@ -1,18 +1,13 @@
 import type { NextPage } from 'next';
+import { Paper, Button, Typography, Box, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useForm, Control, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, scheme } from '@validation/member';
+import { Input, scheme } from 'validation/member';
 import Head from 'next/head';
 
-import Layout from '@components/templates/Layout';
-import Container from '@components/templates/Container';
-import Heading from '@components/atoms/Heading';
-import Button from '@components/atoms/Button';
-import Box from '@components/atoms/Box';
-import FormInput from '@components/atoms/FormInput';
-import { setMember } from '@helper/member';
-import styles from '@styles/pages/login/Index.module.scss';
+import Layout from 'components/templates/Layout';
+import { setMember } from 'helper/member';
 
 type Props = {
   control: Control<Input>;
@@ -29,39 +24,44 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
         <meta name="description" content="3-5 9人ブログ ログイン" />
       </Head>
       <Layout isHeader={false}>
-        <Container>
-          <div className={styles.root}>
-            <Box>
-              <Heading level={1} align="center">
-                ログイン
-              </Heading>
-              <form onSubmit={handleSubmit}>
-                <Box mb={2}>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field, fieldState }) => (
-                      <FormInput
-                        id={field.name}
-                        type="text"
-                        label="名前"
-                        value={field.value}
-                        helperText={fieldState.error?.message ?? ''}
-                        isError={!!fieldState.error?.message}
-                        handleChange={field.onChange}
-                      />
-                    )}
-                  />
-                </Box>
-                <Box display="flex" justify="right">
-                  <Button variant="contained" color="primary" type="submit">
-                    ログイン
-                  </Button>
-                </Box>
-              </form>
-            </Box>
-          </div>
-        </Container>
+        <Box mt={10} mx="auto" maxWidth={700}>
+          <Paper
+            sx={{
+              mb: 3,
+              p: 2,
+            }}
+          >
+            <Typography variant="h1" align="center" sx={{ mb: 5 }}>
+              ログイン
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <Box mb={3}>
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <TextField
+                      id={field.name}
+                      type="text"
+                      label="名前"
+                      value={field.value}
+                      size="small"
+                      fullWidth
+                      helperText={fieldState.error?.message ?? ''}
+                      error={!!fieldState.error?.message}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+              </Box>
+              <Box display="flex" justifyContent="right">
+                <Button variant="contained" color="primary" type="submit">
+                  ログイン
+                </Button>
+              </Box>
+            </form>
+          </Paper>
+        </Box>
       </Layout>
     </>
   );

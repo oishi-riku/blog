@@ -1,9 +1,8 @@
 import { FC } from 'react';
+import { Box } from '@mui/material';
 
-import Header from '@components/organisms/Header';
-import Footer from '@components/organisms/Footer';
-
-import styles from '@styles/components/templates/Layout.module.scss';
+import Header from 'components/organisms/Header';
+import Footer from 'components/organisms/Footer';
 
 type Props = {
   isHeader?: boolean;
@@ -12,11 +11,13 @@ type Props = {
 
 const Layout: FC<Props> = ({ children, isHeader = true, isFooter = true }) => {
   return (
-    <div className={styles.root}>
+    <Box display="flex" flexDirection="column" minHeight="100vh">
       {isHeader && <Header />}
-      <main className={styles.main}>{children}</main>
+      <Box component="main" flex="1 1 auto" pt={2}>
+        {children}
+      </Box>
       {isFooter && <Footer />}
-    </div>
+    </Box>
   );
 };
 
