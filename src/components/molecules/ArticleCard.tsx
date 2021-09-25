@@ -33,7 +33,9 @@ const ArticleCard: FC<Props> = ({ title, date, name, content, href }) => {
               </Box>
             </Box>
             <Box flex="1 1 auto" mb={1.5}>
-              <TypographyRowControl maxRow={2}>{content}</TypographyRowControl>
+              <TypographyRowControl maxRow={2} maxRowPc={3}>
+                {content}
+              </TypographyRowControl>
             </Box>
             <Typography align="right" variant="body2">
               続きを読む
