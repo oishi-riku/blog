@@ -13,7 +13,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     const MEMBER_NAME = localStorage.getItem('MEMBER_NAME');
     if (!MEMBER_NAME) router.push('/login');
-  }, [pathname, router]);
+  }, []); // eslint-disable-line
 
   return (
     <ThemeProvider theme={theme}>
