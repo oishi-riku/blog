@@ -21,7 +21,6 @@ import { Input, scheme } from 'validation/article';
 import { createArticle } from 'domains/microCMS/services/article';
 
 import Head from 'next/head';
-import Layout from 'components/templates/Layout';
 
 type Props = {
   control: Control<Input>;
@@ -35,102 +34,100 @@ const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
         <title>新規作成 | 3-5 9人ブログ</title>
         <meta name="description" content="3-5 9人ブログ 新規作成" />
       </Head>
-      <Layout>
-        <Container>
-          <Typography variant="h1" sx={{ mb: 5 }}>
-            新規作成
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <Paper
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                mb: 3,
-                p: 2,
-              }}
-            >
-              <Controller
-                name="title"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <TextField
+      <Container>
+        <Typography variant="h1" sx={{ mb: 5 }}>
+          新規作成
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Paper
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              mb: 3,
+              p: 2,
+            }}
+          >
+            <Controller
+              name="title"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  id={field.name}
+                  type="text"
+                  label="タイトル"
+                  value={field.value}
+                  size="small"
+                  fullWidth
+                  helperText={fieldState.error?.message ?? ''}
+                  error={!!fieldState.error?.message}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <Controller
+              name="content"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  id={field.name}
+                  label="本文"
+                  value={field.value}
+                  size="small"
+                  fullWidth
+                  multiline
+                  rows={15}
+                  helperText={fieldState.error?.message ?? ''}
+                  error={!!fieldState.error?.message}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <Controller
+              name="next"
+              control={control}
+              render={({ field, fieldState }) => (
+                <FormControl
+                  size="small"
+                  fullWidth
+                  error={!!fieldState.error?.message}
+                >
+                  <InputLabel>次の人</InputLabel>
+                  <Select
                     id={field.name}
-                    type="text"
-                    label="タイトル"
-                    value={field.value}
-                    size="small"
-                    fullWidth
-                    helperText={fieldState.error?.message ?? ''}
-                    error={!!fieldState.error?.message}
+                    label="次の人"
                     onChange={field.onChange}
-                  />
-                )}
-              />
-              <Controller
-                name="content"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <TextField
-                    id={field.name}
-                    label="本文"
                     value={field.value}
-                    size="small"
-                    fullWidth
-                    multiline
-                    rows={15}
-                    helperText={fieldState.error?.message ?? ''}
-                    error={!!fieldState.error?.message}
-                    onChange={field.onChange}
-                  />
-                )}
-              />
-              <Controller
-                name="next"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <FormControl
-                    size="small"
-                    fullWidth
-                    error={!!fieldState.error?.message}
                   >
-                    <InputLabel>次の人</InputLabel>
-                    <Select
-                      id={field.name}
-                      label="次の人"
-                      onChange={field.onChange}
-                      value={field.value}
-                    >
-                      <MenuItem value={1}>みちひと</MenuItem>
-                      <MenuItem value={2}>さわき</MenuItem>
-                      <MenuItem value={3}>たくや</MenuItem>
-                    </Select>
-                    <FormHelperText>
-                      {fieldState.error?.message ?? ''}
-                    </FormHelperText>
-                  </FormControl>
-                )}
-              />
-            </Paper>
-            <Box
-              display="flex"
-              flexDirection="row-reverse"
-              justifyContent="right"
-            >
-              <Box ml={1}>
-                <Button variant="contained" color="primary" type="submit">
-                  保存
-                </Button>
-              </Box>
-              <Link href="/" passHref>
-                <Button variant="outlined" color="primary">
-                  キャンセル
-                </Button>
-              </Link>
+                    <MenuItem value={1}>みちひと</MenuItem>
+                    <MenuItem value={2}>さわき</MenuItem>
+                    <MenuItem value={3}>たくや</MenuItem>
+                  </Select>
+                  <FormHelperText>
+                    {fieldState.error?.message ?? ''}
+                  </FormHelperText>
+                </FormControl>
+              )}
+            />
+          </Paper>
+          <Box
+            display="flex"
+            flexDirection="row-reverse"
+            justifyContent="right"
+          >
+            <Box ml={1}>
+              <Button variant="contained" color="primary" type="submit">
+                保存
+              </Button>
             </Box>
-          </form>
-        </Container>
-      </Layout>
+            <Link href="/" passHref>
+              <Button variant="outlined" color="primary">
+                キャンセル
+              </Button>
+            </Link>
+          </Box>
+        </form>
+      </Container>
     </>
   );
 };
