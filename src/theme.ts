@@ -32,7 +32,7 @@ theme = createTheme(theme, {
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(28),
       [theme.breakpoints.up('sm')]: {
-        fontSize: theme.typography.pxToRem(45),
+        fontSize: theme.typography.pxToRem(41),
       },
     },
     h2: {

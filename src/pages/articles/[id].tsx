@@ -1,8 +1,9 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Box, Paper } from '@mui/material';
 
 import Head from 'next/head';
 import Layout from 'components/templates/Layout';
+import ArticleArea from 'components/molecules/ArticleArea';
 import { getArticle, getAllArticles } from 'domains/microCMS/services/article';
 import { Article as ArticleSingle } from 'domains/microCMS/models/article';
 
@@ -14,14 +15,26 @@ const Article: NextPage<StaticProps> = ({ article }) => {
   return (
     <>
       <Head>
-        <title>3-5 9人ブログ</title>
-        <meta name="description" content="3-5 9人ブログ" />
+        <title>{`${article.title} 3-5 9人ブログ`}</title>
+        <meta name="description" content={`${article.title} 3-5 9人ブログ`} />
       </Head>
       <Layout>
         <Container>
-          <article>
-            <Typography variant="h1">{article.title}</Typography>
-          </article>
+          <Paper sx={{ p: 2 }} component="article">
+            <Box mb={3}>
+              <Typography variant="h1">{article.title}</Typography>
+              <Box
+                display="flex"
+                gap={1}
+                fontSize="body2.fontSize"
+                color="primary"
+              >
+                <time>{article.createdAt}</time>
+                <span>{article.name}</span>
+              </Box>
+            </Box>
+            <ArticleArea content={article.content} />
+          </Paper>
         </Container>
       </Layout>
     </>

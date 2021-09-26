@@ -24,7 +24,7 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
         <meta name="description" content="3-5 9人ブログ ログイン" />
       </Head>
       <Layout isHeader={false}>
-        <Box mt={10} mx="auto" maxWidth={700}>
+        <Box mt={10} mx="auto" px={2} maxWidth={750}>
           <Paper
             sx={{
               mb: 3,

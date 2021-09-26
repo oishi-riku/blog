@@ -25,7 +25,7 @@ const ArticleCard: FC<Props> = ({ title, date, name, content, href }) => {
               <Box
                 display="flex"
                 gap={1}
-                fontSize="overline.fontSize"
+                fontSize="body2.fontSize"
                 color="primary"
               >
                 <time>{date}</time>
