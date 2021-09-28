@@ -1,9 +1,9 @@
 export type RESPONSE_BASE_SINGLE<T> = T & {
   id: string;
-  createdAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  publishedAt: Date;
+  revisedAt: Date;
+  updatedAt: Date;
 };
 
 export type RESPONSE_BASE_COLLECTION<T> = {

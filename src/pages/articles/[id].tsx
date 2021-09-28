@@ -3,6 +3,7 @@ import { Container, Typography, Box, Paper } from '@mui/material';
 
 import Head from 'next/head';
 import ArticleArea from 'components/molecules/ArticleArea';
+import ArticleMeta from 'components/atoms/ArticleMeta';
 import { getArticle, getAllArticles } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
 import { Article as ArticleSingle } from 'domains/microCMS/models/article';
@@ -22,15 +23,7 @@ const Article: NextPage<StaticProps> = ({ article }) => {
         <Paper sx={{ p: 2 }} component="article">
           <Box mb={3}>
             <Typography variant="h1">{article.title}</Typography>
-            <Box
-              display="flex"
-              gap={1}
-              fontSize="body2.fontSize"
-              color="primary"
-            >
-              <time>{article.createdAt}</time>
-              <span>{article.dispName}</span>
-            </Box>
+            <ArticleMeta date={article.createdAt} name={article.dispName} />
           </Box>
           <ArticleArea content={article.content} />
         </Paper>

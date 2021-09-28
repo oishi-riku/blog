@@ -2,11 +2,12 @@ import { FC } from 'react';
 import Link from 'next/link';
 import { Typography, Box, Card, CardActionArea } from '@mui/material';
 
+import ArticleMeta from 'components/atoms/ArticleMeta';
 import TypographyRowControl from 'components/atoms/TypographyRowControl';
 
 type Props = {
   title: string;
-  date: string;
+  date: Date;
   name: string;
   content: string;
   href: string;
@@ -22,15 +23,7 @@ const ArticleCard: FC<Props> = ({ title, date, name, content, href }) => {
               <Typography component="b" variant="h4">
                 {title}
               </Typography>
-              <Box
-                display="flex"
-                gap={1}
-                fontSize="body2.fontSize"
-                color="primary"
-              >
-                <time>{date}</time>
-                <span>{name}</span>
-              </Box>
+              <ArticleMeta date={date} name={name} />
             </Box>
             <Box flex="1 1 auto" mb={1.5}>
               <TypographyRowControl maxRow={2} maxRowPc={3}>
