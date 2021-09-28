@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import {
@@ -13,21 +14,32 @@ import {
   FormHelperText,
   FormControl,
 } from '@mui/material';
-
+import { MemberContext } from 'context/context';
 import { useRouter } from 'next/router';
 import { useForm, Control, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, scheme } from 'validation/article';
+import { AllMember } from 'domains/microCMS/models/member';
 import { createArticle } from 'domains/microCMS/services/article';
+import fetcher from 'domains/microCMS/services/member';
 
 import Head from 'next/head';
 
 type Props = {
+  name: string | null;
+  allMember: AllMember;
   control: Control<Input>;
   handleSubmit: () => void;
 };
 
-const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
+const BASE_ENDPOINT = process.env.NEXT_PUBLIC_MICRO_CMS_BASE_ENDPOINT || '';
+
+const NewArticle: NextPage<Props> = ({
+  name,
+  allMember,
+  control,
+  handleSubmit,
+}) => {
   return (
     <>
       <Head>
@@ -48,6 +60,14 @@ const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
               p: 2,
             }}
           >
+            <TextField
+              type="text"
+              label="投稿者"
+              value={name ?? ''}
+              size="small"
+              disabled
+              fullWidth
+            />
             <Controller
               name="title"
               control={control}
@@ -99,9 +119,11 @@ const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
                     onChange={field.onChange}
                     value={field.value}
                   >
-                    <MenuItem value={1}>みちひと</MenuItem>
-                    <MenuItem value={2}>さわき</MenuItem>
-                    <MenuItem value={3}>たくや</MenuItem>
+                    {allMember.contents.map((m) => (
+                      <MenuItem key={m.id} value={m.name}>
+                        {m.dispName}
+                      </MenuItem>
+                    ))}
                   </Select>
                   <FormHelperText>
                     {fieldState.error?.message ?? ''}
@@ -132,8 +154,13 @@ const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
   );
 };
 
-const EnhancedNewArticle: NextPage = () => {
+const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
+  allMember,
+}) => {
+  const member = useContext(MemberContext);
   const router = useRouter();
+  console.log(member?.name);
+
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
       name: '',
@@ -146,14 +173,33 @@ const EnhancedNewArticle: NextPage = () => {
 
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
-      await createArticle(payload);
+      if (!member) throw new Error();
+
+      await createArticle({ ...payload, name: member.name });
       router.push('/');
     } catch (error) {
       window.alert('エラーが発生しました。');
     }
   });
 
-  return <NewArticle control={control} handleSubmit={_handleSubmit} />;
+  return (
+    <NewArticle
+      name={member?.dispName ?? null}
+      allMember={allMember}
+      control={control}
+      handleSubmit={_handleSubmit}
+    />
+  );
+};
+
+export const getStaticProps = async () => {
+  const allMember = await fetcher(`${BASE_ENDPOINT}/member`);
+
+  return {
+    props: {
+      allMember,
+    },
+  };
 };
 
 export default EnhancedNewArticle;
