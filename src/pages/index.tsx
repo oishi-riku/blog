@@ -1,14 +1,12 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
+import { Typography, Box, Container, Grid, Button } from '@mui/material';
+
 import Head from 'next/head';
-import Layout from '@components/templates/Layout';
-import Container from '@components/templates/Container';
-import Grid from '@components/templates/Grid';
-import ArticleCard from '@components/molecules/ArticleCard';
-import Heading from '@components/atoms/Heading';
-import ButtonLink from '@components/atoms/ButtonLink';
-import Box from '@components/atoms/Box';
-import { getAllArticles } from '@domains/microCMS/services/article';
-import { Articles } from '@domains/microCMS/models/article';
+import ArticleCard from 'components/molecules/ArticleCard';
+import { getAllArticles } from 'domains/microCMS/services/article';
+import { Articles } from 'domains/microCMS/models/article';
+import { getAllMember } from 'domains/microCMS/services/member';
 
 type StaticProps = {
   articles: Articles;
@@ -21,48 +19,52 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
         <title>3-5 9人ブログ</title>
         <meta name="description" content="3-5 9人ブログ" />
       </Head>
-      <Layout>
-        <Container>
-          <Heading level={1} align="center">
-            9人
-          </Heading>
-          <Box display="flex" justify="right" mb={2}>
-            <ButtonLink
-              href="/articles/new/"
-              variant="contained"
-              color="primary"
-            >
+      <Container>
+        <Typography variant="h1" align="center" sx={{ mb: 5 }}>
+          9人
+        </Typography>
+        <Box display="flex" justifyContent="right" mb={2}>
+          <Link href="/articles/new/" passHref>
+            <Button variant="contained" color="primary">
               新規作成
-            </ButtonLink>
-          </Box>
-          <Grid
-            col={1}
-            colPc={2}
-            items={articles.contents.map((a) => ({
-              id: a.id,
-              item: (
-                <ArticleCard
-                  title={a.title}
-                  date={a.createdAt}
-                  name={a.name}
-                  content={a.content}
-                  href={`/articles/${a.id}`}
-                />
-              ),
-            }))}
-          ></Grid>
-        </Container>
-      </Layout>
+            </Button>
+          </Link>
+        </Box>
+        <Grid container spacing={2} component="ul">
+          {articles.contents.map((a) => (
+            <Grid key={a.id} item xs={12} sm={6} component="li">
+              <ArticleCard
+                title={a.title}
+                date={a.createdAt}
+                name={a.dispName}
+                content={a.content}
+                href={`/articles/${a.id}`}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </>
   );
 };
 
 export const getStaticProps = async () => {
   const articles = await getAllArticles();
+  const allMember = await getAllMember();
+  const contents = articles.contents.map((c) => {
+    return {
+      ...c,
+      dispName:
+        allMember.contents.find((m) => m.name === c.name)?.dispName ?? '',
+    };
+  });
 
   return {
     props: {
-      articles,
+      articles: {
+        ...articles,
+        contents,
+      },
     },
   };
 };

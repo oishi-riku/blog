@@ -1,128 +1,165 @@
+import { useContext } from 'react';
 import type { NextPage } from 'next';
+import Link from 'next/link';
+import {
+  Container,
+  Button,
+  Typography,
+  Box,
+  Paper,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormHelperText,
+  FormControl,
+} from '@mui/material';
 import { useRouter } from 'next/router';
 import { useForm, Control, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, scheme } from '@validation/article';
-import { createArticle } from '@domains/microCMS/services/article';
+import { Input, scheme } from 'validation/article';
+import { AllMember } from 'domains/microCMS/models/member';
+import { createArticle } from 'domains/microCMS/services/article';
+import { getAllMember } from 'domains/microCMS/services/member';
+import { MemberContext } from 'hooks/useMemberStore';
 
 import Head from 'next/head';
-import Layout from '@components/templates/Layout';
-import Container from '@components/templates/Container';
-import Heading from '@components/atoms/Heading';
-import FormInput from '@components/atoms/FormInput';
-import FormTextarea from '@components/atoms/FormTextarea';
-import FormSelect from '@components/atoms/FormSelect';
-import Button from '@components/atoms/Button';
-import ButtonLink from '@components/atoms/ButtonLink';
-import Box from '@components/atoms/Box';
 
 type Props = {
+  name: string | null;
+  allMember: AllMember;
   control: Control<Input>;
   handleSubmit: () => void;
 };
 
-const NewArticle: NextPage<Props> = ({ control, handleSubmit }) => {
+const BASE_ENDPOINT = process.env.NEXT_PUBLIC_MICRO_CMS_BASE_ENDPOINT || '';
+
+const NewArticle: NextPage<Props> = ({
+  name,
+  allMember,
+  control,
+  handleSubmit,
+}) => {
   return (
     <>
       <Head>
         <title>新規作成 | 3-5 9人ブログ</title>
         <meta name="description" content="3-5 9人ブログ 新規作成" />
       </Head>
-      <Layout>
-        <Container>
-          <Heading level={1}>新規作成</Heading>
-          <form onSubmit={handleSubmit}>
-            <Box mb={2}>
-              <Controller
-                name="title"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <FormInput
-                    id={field.name}
-                    type="text"
-                    label="タイトル"
-                    value={field.value}
-                    helperText={fieldState.error?.message ?? ''}
-                    isError={!!fieldState.error?.message}
-                    handleChange={field.onChange}
-                  />
-                )}
-              />
-            </Box>
-            <Box mb={2}>
-              <Controller
-                name="content"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <FormTextarea
-                    id={field.name}
-                    label="本文"
-                    value={field.value}
-                    row={12}
-                    helperText={fieldState.error?.message ?? ''}
-                    isError={!!fieldState.error?.message}
-                    handleChange={field.onChange}
-                  />
-                )}
-              />
-            </Box>
-            <Box mb={2}>
-              <Controller
-                name="next"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <FormSelect
+      <Container>
+        <Typography variant="h1" sx={{ mb: 5 }}>
+          新規作成
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Paper
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              mb: 3,
+              p: 2,
+            }}
+          >
+            <TextField
+              type="text"
+              label="投稿者"
+              value={name ?? ''}
+              size="small"
+              disabled
+              fullWidth
+            />
+            <Controller
+              name="title"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  id={field.name}
+                  type="text"
+                  label="タイトル"
+                  value={field.value}
+                  size="small"
+                  fullWidth
+                  helperText={fieldState.error?.message ?? ''}
+                  error={!!fieldState.error?.message}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <Controller
+              name="content"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  id={field.name}
+                  label="本文"
+                  value={field.value}
+                  size="small"
+                  fullWidth
+                  multiline
+                  rows={15}
+                  helperText={fieldState.error?.message ?? ''}
+                  error={!!fieldState.error?.message}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <Controller
+              name="next"
+              control={control}
+              render={({ field, fieldState }) => (
+                <FormControl
+                  size="small"
+                  fullWidth
+                  error={!!fieldState.error?.message}
+                >
+                  <InputLabel>次の人</InputLabel>
+                  <Select
                     id={field.name}
                     label="次の人"
+                    onChange={field.onChange}
                     value={field.value}
-                    handleChange={field.onChange}
-                    helperText={fieldState.error?.message ?? ''}
-                    isError={!!fieldState.error?.message}
-                    options={[
-                      {
-                        id: '0',
-                        value: '',
-                        text: '',
-                      },
-                      {
-                        id: '1',
-                        value: 'michihito',
-                        text: 'みちひと',
-                      },
-                      {
-                        id: '2',
-                        value: 'sawaki',
-                        text: 'さわき',
-                      },
-                      {
-                        id: '3',
-                        value: 'takuya',
-                        text: 'たくや',
-                      },
-                    ]}
-                  />
-                )}
-              />
+                  >
+                    {allMember.contents.map((m) => (
+                      <MenuItem key={m.id} value={m.name}>
+                        {m.dispName}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText>
+                    {fieldState.error?.message ?? ''}
+                  </FormHelperText>
+                </FormControl>
+              )}
+            />
+          </Paper>
+          <Box
+            display="flex"
+            flexDirection="row-reverse"
+            justifyContent="right"
+          >
+            <Box ml={1}>
+              <Button variant="contained" color="primary" type="submit">
+                保存
+              </Button>
             </Box>
-            <Box display="flex" direction="row-reverse" justify="right">
-              <Box ml={1}>
-                <Button variant="contained" color="primary" type="submit">
-                  保存
-                </Button>
-              </Box>
-              <ButtonLink variant="outlined" color="primary" href="/">
+            <Link href="/" passHref>
+              <Button variant="outlined" color="primary">
                 キャンセル
-              </ButtonLink>
-            </Box>
-          </form>
-        </Container>
-      </Layout>
+              </Button>
+            </Link>
+          </Box>
+        </form>
+      </Container>
     </>
   );
 };
 
-const EnhancedNewArticle: NextPage = () => {
+const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
+  allMember,
+}) => {
+  const context = useContext(MemberContext);
   const router = useRouter();
+
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
       name: '',
@@ -135,14 +172,33 @@ const EnhancedNewArticle: NextPage = () => {
 
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
-      await createArticle(payload);
+      if (!context || !context.member) throw new Error();
+
+      await createArticle({ ...payload, name: context.member.name });
       router.push('/');
     } catch (error) {
       window.alert('エラーが発生しました。');
     }
   });
 
-  return <NewArticle control={control} handleSubmit={_handleSubmit} />;
+  return (
+    <NewArticle
+      name={context?.member?.dispName ?? null}
+      allMember={allMember}
+      control={control}
+      handleSubmit={_handleSubmit}
+    />
+  );
+};
+
+export const getStaticProps = async () => {
+  const allMember = await getAllMember();
+
+  return {
+    props: {
+      allMember,
+    },
+  };
 };
 
 export default EnhancedNewArticle;

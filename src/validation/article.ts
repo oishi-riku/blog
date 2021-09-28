@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { localeJP } from '@validation/config/locale';
+import { localeJP } from 'validation/config/locale';
 
 yup.setLocale(localeJP);
 

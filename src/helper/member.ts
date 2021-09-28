@@ -1,6 +1,6 @@
 const MEMBER = (process.env.NEXT_PUBLIC_MEMBER || '').split(',');
 
-const convertMember = (name: string) => {
+export const convertMember = (name: string) => {
   switch (name) {
     case MEMBER[0]:
       return 'riku_oishi';

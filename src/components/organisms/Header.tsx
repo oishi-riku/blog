@@ -1,20 +1,81 @@
-import { FC } from 'react';
-import Container from '@components/templates/Container';
+import { FC, useState, useContext, MouseEvent } from 'react';
+import { useRouter } from 'next/router';
+import { AppBar, Container, Box, Button, Menu, MenuItem } from '@mui/material';
+import { MemberContext } from 'hooks/useMemberStore';
 
-import styles from '@styles/components/organisms/Header.module.scss';
+type Props = {
+  name: string;
+  anchorEl: HTMLElement | null;
+  isMenuOpen: boolean;
+  handleClickMenuBtn: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleCloseMenu: () => void;
+  handleLogout: () => void;
+};
 
-const Header: FC = () => {
+const Header: FC<Props> = ({
+  name,
+  anchorEl,
+  isMenuOpen,
+  handleClickMenuBtn,
+  handleCloseMenu,
+  handleLogout,
+}) => {
+  const menuId = 'global-menu';
   return (
-    <header className={styles.root}>
+    <AppBar position="sticky">
       <Container>
-        <div className={styles.inner}>
-          <button className={styles.menuBtn} type="button">
-            大石陸
-          </button>
-        </div>
+        <Box display="flex" justifyContent="flex-end" py={0.5} minHeight={44}>
+          <Button
+            sx={{ color: 'common.white' }}
+            onClick={handleClickMenuBtn}
+            aria-controls={menuId}
+            aria-expanded={isMenuOpen}
+          >
+            {name}
+          </Button>
+        </Box>
+        <Menu
+          id={menuId}
+          open={isMenuOpen}
+          anchorEl={anchorEl}
+          onClose={handleCloseMenu}
+        >
+          <MenuItem>表示名変更</MenuItem>
+          <MenuItem onClick={handleLogout}>ログアウト</MenuItem>
+        </Menu>
       </Container>
-    </header>
+    </AppBar>
   );
 };
 
-export default Header;
+const EnhancedHeader: FC = () => {
+  const router = useRouter();
+  const context = useContext(MemberContext);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const isMenuOpen = !!anchorEl;
+
+  const handleClickMenu = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('MEMBER_NAME');
+    context?.memberDispatch({ type: 'DELETE', member: null });
+    router.push('/login');
+  };
+
+  return (
+    <Header
+      name={context?.member?.dispName ?? ''}
+      anchorEl={anchorEl}
+      isMenuOpen={isMenuOpen}
+      handleClickMenuBtn={handleClickMenu}
+      handleCloseMenu={handleCloseMenu}
+      handleLogout={handleLogout}
+    />
+  );
+};
+
+export default EnhancedHeader;

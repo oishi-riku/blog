@@ -1,4 +1,4 @@
-import { Article, Articles } from '@domains/microCMS/models/article';
+import { Article, Articles } from 'domains/microCMS/models/article';
 
 const BASE_ENDPOINT = process.env.NEXT_PUBLIC_MICRO_CMS_BASE_ENDPOINT || '';
 const X_API_KEY = process.env.NEXT_PUBLIC_X_API_KEY || '';

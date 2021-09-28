@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import Link from 'next/link';
+import { Typography, Box, Card, CardActionArea } from '@mui/material';
 
-import styles from '@styles/components/molecules/ArticleCard.module.scss';
-import TypographyRowControl from '@components/atoms/TypographyRowControl';
+import ArticleMeta from 'components/atoms/ArticleMeta';
+import TypographyRowControl from 'components/atoms/TypographyRowControl';
 
 type Props = {
   title: string;
-  date: string;
+  date: Date;
   name: string;
   content: string;
   href: string;
@@ -14,23 +15,28 @@ type Props = {
 
 const ArticleCard: FC<Props> = ({ title, date, name, content, href }) => {
   return (
-    <div className={styles.root}>
-      <Link href={href}>
-        <a className={styles.link}>
-          <div className={styles.head}>
-            <b className={styles.headTitle}>{title}</b>
-            <div className={styles.headData}>
-              <time>{date}</time>
-              <span>{name}</span>
-            </div>
-          </div>
-          <div className={styles.body}>
-            <TypographyRowControl maxRow={2}>{content}</TypographyRowControl>
-          </div>
-          <div className={styles.foot}>続きを読む</div>
-        </a>
+    <Card sx={{ height: '100%' }}>
+      <Link href={href} passHref>
+        <CardActionArea sx={{ height: '100%' }}>
+          <Box display="flex" flexDirection="column" height="100%" p={1}>
+            <Box mb={1.5}>
+              <Typography component="b" variant="h4">
+                {title}
+              </Typography>
+              <ArticleMeta date={date} name={name} />
+            </Box>
+            <Box flex="1 1 auto" mb={1.5}>
+              <TypographyRowControl maxRow={2} maxRowPc={3}>
+                {content}
+              </TypographyRowControl>
+            </Box>
+            <Typography align="right" variant="body2">
+              続きを読む
+            </Typography>
+          </Box>
+        </CardActionArea>
       </Link>
-    </div>
+    </Card>
   );
 };
 

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import styles from '@styles/components/atoms/TypographyRowControl.module.scss';
+import { Typography } from '@mui/material';
 
 type Props = {
   maxRow: 1 | 2 | 3 | 4 | 5;
@@ -8,13 +8,17 @@ type Props = {
 
 const TypographyRowControl: FC<Props> = ({ children, maxRow, maxRowPc }) => {
   return (
-    <p
-      className={styles.root}
-      data-row={maxRow}
-      data-row-pc={maxRowPc ? maxRowPc : null}
+    <Typography
+      sx={{
+        whiteSpace: 'pre-line',
+        display: '-webkit-box',
+        overflow: 'hidden',
+        WebkitBoxOrient: 'vertical',
+        WebkitLineClamp: { xs: maxRow, sm: maxRowPc },
+      }}
     >
       {children}
-    </p>
+    </Typography>
   );
 };
 
