@@ -1,26 +1,42 @@
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
-import Layout from 'components/templates/Layout';
 import { useRouter } from 'next/router';
+import { useState, useEffect, useCallback } from 'react';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from 'theme';
+import useAllMember from 'hooks/useAllMember';
+import Layout from 'components/templates/Layout';
+import { MemberContext, Member } from 'context/context';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
+  const { isError, isLoading, members } = useAllMember();
+  const [member, setMember] = useState<Member>(null);
   const { pathname } = router;
 
-  useEffect(() => {
+  const checkAccount = useCallback(() => {
     const MEMBER_NAME = localStorage.getItem('MEMBER_NAME');
-    if (!MEMBER_NAME) router.push('/login');
-  }, []); // eslint-disable-line
+    if (!MEMBER_NAME) return router.push('/login');
+    if (members) {
+      const target = members.contents.find((m) => m.name === MEMBER_NAME);
+      setMember(
+        target ? { name: target.name, dispName: target.dispName } : null
+      );
+    }
+  }, [router, members]);
+
+  useEffect(() => {
+    checkAccount();
+  }, [checkAccount]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout isHeader={pathname !== '/login'}>
-        <Component {...pageProps} />
-      </Layout>
+      <MemberContext.Provider value={member}>
+        <Layout isHeader={pathname !== '/login'}>
+          <Component {...pageProps} />
+        </Layout>
+      </MemberContext.Provider>
     </ThemeProvider>
   );
 };

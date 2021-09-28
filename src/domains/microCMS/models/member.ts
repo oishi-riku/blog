@@ -1,6 +1,6 @@
 import { RESPONSE_BASE_SINGLE, RESPONSE_BASE_COLLECTION } from './common';
 
-type Item = {
+export type Item = {
   name: string;
   dispName: string;
 };
