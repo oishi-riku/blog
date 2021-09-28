@@ -6,6 +6,7 @@ import Head from 'next/head';
 import ArticleCard from 'components/molecules/ArticleCard';
 import { getAllArticles } from 'domains/microCMS/services/article';
 import { Articles } from 'domains/microCMS/models/article';
+import { getAllMember } from 'domains/microCMS/services/member';
 
 type StaticProps = {
   articles: Articles;
@@ -35,7 +36,7 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
               <ArticleCard
                 title={a.title}
                 date={a.createdAt}
-                name={a.name}
+                name={a.dispName}
                 content={a.content}
                 href={`/articles/${a.id}`}
               />
@@ -49,10 +50,21 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
 
 export const getStaticProps = async () => {
   const articles = await getAllArticles();
+  const allMember = await getAllMember();
+  const contents = articles.contents.map((c) => {
+    return {
+      ...c,
+      dispName:
+        allMember.contents.find((m) => m.name === c.name)?.dispName ?? '',
+    };
+  });
 
   return {
     props: {
-      articles,
+      articles: {
+        ...articles,
+        contents,
+      },
     },
   };
 };

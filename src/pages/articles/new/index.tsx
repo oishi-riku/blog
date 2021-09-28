@@ -21,7 +21,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, scheme } from 'validation/article';
 import { AllMember } from 'domains/microCMS/models/member';
 import { createArticle } from 'domains/microCMS/services/article';
-import fetcher from 'domains/microCMS/services/member';
+import { getAllMember } from 'domains/microCMS/services/member';
 
 import Head from 'next/head';
 
@@ -193,7 +193,7 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 };
 
 export const getStaticProps = async () => {
-  const allMember = await fetcher(`${BASE_ENDPOINT}/member`);
+  const allMember = await getAllMember();
 
   return {
     props: {

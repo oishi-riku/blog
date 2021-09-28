@@ -4,6 +4,7 @@ import { Container, Typography, Box, Paper } from '@mui/material';
 import Head from 'next/head';
 import ArticleArea from 'components/molecules/ArticleArea';
 import { getArticle, getAllArticles } from 'domains/microCMS/services/article';
+import { getAllMember } from 'domains/microCMS/services/member';
 import { Article as ArticleSingle } from 'domains/microCMS/models/article';
 
 type StaticProps = {
@@ -28,7 +29,7 @@ const Article: NextPage<StaticProps> = ({ article }) => {
               color="primary"
             >
               <time>{article.createdAt}</time>
-              <span>{article.name}</span>
+              <span>{article.dispName}</span>
             </Box>
           </Box>
           <ArticleArea content={article.content} />
@@ -55,10 +56,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const p = params as { id: string };
   const article = await getArticle(p.id);
+  const allMember = await getAllMember();
+
+  const a = {
+    ...article,
+    dispName:
+      allMember.contents.find((m) => m.name === article.name)?.dispName ?? '',
+  };
 
   return {
     props: {
-      article,
+      article: a,
     },
   };
 };
