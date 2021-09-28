@@ -16,14 +16,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   const checkAccount = useCallback(() => {
     const MEMBER_NAME = localStorage.getItem('MEMBER_NAME');
-    if (!MEMBER_NAME) return router.push('/login');
+    if (!MEMBER_NAME) return router.replace('/login');
     if (members) {
       const target = members.contents.find((m) => m.name === MEMBER_NAME);
       setMember(
         target ? { name: target.name, dispName: target.dispName } : null
       );
     }
-  }, [router, members]);
+  }, [members]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     checkAccount();
