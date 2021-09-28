@@ -80,6 +80,14 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiSnackbarContent: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+          backgroundColor: theme.palette.secondary.main,
+        },
+      },
+    },
   },
 });
 

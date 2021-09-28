@@ -1,11 +1,14 @@
 import useSWR from 'swr';
 import fetcher from 'domains/microCMS/services/fetcher';
-import { AllMember } from 'domains/microCMS/models/member';
+import { Articles } from 'domains/microCMS/models/article';
 
 const BASE_ENDPOINT = process.env.NEXT_PUBLIC_MICRO_CMS_BASE_ENDPOINT || '';
 
-const useAllMember = () => {
-  const { data, error } = useSWR<AllMember>(`${BASE_ENDPOINT}/member`, fetcher);
+const useNextWriter = () => {
+  const { data, error } = useSWR<Articles>(
+    `${BASE_ENDPOINT}/articles`,
+    fetcher
+  );
 
   if (error) {
     return { isError: true };
@@ -13,7 +16,7 @@ const useAllMember = () => {
   if (!data) {
     return { isLoading: true };
   }
-  return { members: data };
+  return { nextWriter: data.contents[0].next };
 };
 
-export default useAllMember;
+export default useNextWriter;

@@ -5,6 +5,7 @@ type Item = {
   name: string;
   dispName: string;
   content: string;
+  next: string;
 };
 
 export type Article = RESPONSE_BASE_SINGLE<Item>;

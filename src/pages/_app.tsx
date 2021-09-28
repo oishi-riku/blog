@@ -1,18 +1,21 @@
 import type { AppProps } from 'next/app';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState, useEffect, useCallback } from 'react';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from 'theme';
 import useAllMember from 'hooks/useAllMember';
+import useNextWriter from 'hooks/useNextWriter';
 import Layout from 'components/templates/Layout';
 import { MemberContext, Member } from 'context/context';
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-  const { isError, isLoading, members } = useAllMember();
-  const [member, setMember] = useState<Member>(null);
   const { pathname } = router;
+  const { members } = useAllMember();
+  const { nextWriter } = useNextWriter();
+  const [member, setMember] = useState<Member>(null);
 
   const checkAccount = useCallback(() => {
     const MEMBER_NAME = localStorage.getItem('MEMBER_NAME');
@@ -33,7 +36,19 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <MemberContext.Provider value={member}>
-        <Layout isHeader={pathname !== '/login'}>
+        <Layout
+          isLoginPage={pathname === '/login'}
+          nextWriter={
+            members && nextWriter
+              ? {
+                  name: nextWriter,
+                  dispName:
+                    members.contents.find((m) => m.name === nextWriter)
+                      ?.dispName ?? '',
+                }
+              : null
+          }
+        >
           <Component {...pageProps} />
         </Layout>
       </MemberContext.Provider>
