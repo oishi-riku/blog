@@ -1,12 +1,15 @@
 import type { NextPage } from 'next';
-import { Paper, Button, Typography, Box, TextField } from '@mui/material';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { Paper, Button, Typography, Box, TextField } from '@mui/material';
 import { useForm, Control, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, scheme } from 'validation/member';
-import Head from 'next/head';
 
-import { setMember } from 'helper/member';
+import useAllMember from 'hooks/useAllMember';
+import { MemberContext } from 'hooks/useMemberStore';
+import { Input, scheme } from 'validation/member';
+import { setMember, convertMember } from 'helper/member';
 
 type Props = {
   control: Control<Input>;
@@ -66,6 +69,8 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
 
 const EnhancedLogin: NextPage = () => {
   const router = useRouter();
+  const { members } = useAllMember();
+  const context = useContext(MemberContext);
   const { handleSubmit, control } = useForm<Input>({
     resolver: yupResolver(scheme),
     defaultValues: {
@@ -77,8 +82,19 @@ const EnhancedLogin: NextPage = () => {
   });
 
   const _handleSubmit = handleSubmit((payload) => {
-    setMember(payload.name);
-    router.push('/');
+    const name = convertMember(payload.name);
+    if (members && name) {
+      const target = members.contents.find((m) => m.name === name);
+
+      context?.memberDispatch({
+        type: 'SET',
+        member: target
+          ? { name: target.name, dispName: target.dispName }
+          : null,
+      });
+      localStorage.setItem('MEMBER_NAME', name);
+      router.push('/');
+    }
   });
 
   return <Login control={control} handleSubmit={_handleSubmit} />;

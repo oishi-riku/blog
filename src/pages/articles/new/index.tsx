@@ -14,7 +14,6 @@ import {
   FormHelperText,
   FormControl,
 } from '@mui/material';
-import { MemberContext } from 'context/context';
 import { useRouter } from 'next/router';
 import { useForm, Control, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,6 +21,7 @@ import { Input, scheme } from 'validation/article';
 import { AllMember } from 'domains/microCMS/models/member';
 import { createArticle } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
+import { MemberContext } from 'hooks/useMemberStore';
 
 import Head from 'next/head';
 
@@ -157,9 +157,8 @@ const NewArticle: NextPage<Props> = ({
 const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
   allMember,
 }) => {
-  const member = useContext(MemberContext);
+  const context = useContext(MemberContext);
   const router = useRouter();
-  console.log(member?.name);
 
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
@@ -173,9 +172,9 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
-      if (!member) throw new Error();
+      if (!context || !context.member) throw new Error();
 
-      await createArticle({ ...payload, name: member.name });
+      await createArticle({ ...payload, name: context.member.name });
       router.push('/');
     } catch (error) {
       window.alert('エラーが発生しました。');
@@ -184,7 +183,7 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 
   return (
     <NewArticle
-      name={member?.dispName ?? null}
+      name={context?.member?.dispName ?? null}
       allMember={allMember}
       control={control}
       handleSubmit={_handleSubmit}

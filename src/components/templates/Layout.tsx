@@ -62,7 +62,6 @@ const EnhancedLayout: FC<Pick<Props, 'nextWriter' | 'isLoginPage'>> = ({
     }
   };
   const handleInViewFooter = (inView: boolean) => {
-    console.log(isDisplayAllContent);
     if (isDisplayAllContent) {
       setIsOpenSnackBar(true);
 

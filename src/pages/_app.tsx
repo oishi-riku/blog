@@ -1,32 +1,35 @@
 import type { AppProps } from 'next/app';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from 'theme';
 import useAllMember from 'hooks/useAllMember';
 import useNextWriter from 'hooks/useNextWriter';
+import useMemberStore, { MemberContext } from 'hooks/useMemberStore';
 import Layout from 'components/templates/Layout';
-import { MemberContext, Member } from 'context/context';
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const { pathname } = router;
   const { members } = useAllMember();
   const { nextWriter } = useNextWriter();
-  const [member, setMember] = useState<Member>(null);
+  const { member, memberDispatch } = useMemberStore();
 
   const checkAccount = useCallback(() => {
     const MEMBER_NAME = localStorage.getItem('MEMBER_NAME');
     if (!MEMBER_NAME) return router.replace('/login');
     if (members) {
       const target = members.contents.find((m) => m.name === MEMBER_NAME);
-      setMember(
-        target ? { name: target.name, dispName: target.dispName } : null
-      );
+      memberDispatch({
+        type: 'SET',
+        member: target
+          ? { name: target.name, dispName: target.dispName }
+          : null,
+      });
     }
-  }, [members]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [members, memberDispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     checkAccount();
@@ -35,7 +38,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <MemberContext.Provider value={member}>
+      <MemberContext.Provider value={{ member, memberDispatch }}>
         <Layout
           isLoginPage={pathname === '/login'}
           nextWriter={
