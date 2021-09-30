@@ -1,27 +1,15 @@
-import { useContext } from 'react';
+import { FC, useContext } from 'react';
 import type { NextPage } from 'next';
-import Link from 'next/link';
-import {
-  Container,
-  Button,
-  Typography,
-  Box,
-  Paper,
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormHelperText,
-  FormControl,
-} from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useForm, Control, Controller } from 'react-hook-form';
+import { useForm, Control } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, scheme } from 'validation/article';
 import { AllMember } from 'domains/microCMS/models/member';
 import { createArticle } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
 import { MemberContext } from 'hooks/useMemberStore';
+import ArticleForm from 'components/templates/ArticleForm';
 
 import Head from 'next/head';
 
@@ -30,15 +18,15 @@ type Props = {
   allMember: AllMember;
   control: Control<Input>;
   handleSubmit: () => void;
+  handleCancel: () => void;
 };
 
-const BASE_ENDPOINT = process.env.NEXT_PUBLIC_MICRO_CMS_BASE_ENDPOINT || '';
-
-const NewArticle: NextPage<Props> = ({
+const NewArticle: FC<Props> = ({
   name,
   allMember,
   control,
   handleSubmit,
+  handleCancel,
 }) => {
   return (
     <>
@@ -50,105 +38,13 @@ const NewArticle: NextPage<Props> = ({
         <Typography variant="h1" sx={{ mb: 5 }}>
           新規作成
         </Typography>
-        <form onSubmit={handleSubmit}>
-          <Paper
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              mb: 3,
-              p: 2,
-            }}
-          >
-            <TextField
-              type="text"
-              label="投稿者"
-              value={name ?? ''}
-              size="small"
-              disabled
-              fullWidth
-            />
-            <Controller
-              name="title"
-              control={control}
-              render={({ field, fieldState }) => (
-                <TextField
-                  id={field.name}
-                  type="text"
-                  label="タイトル"
-                  value={field.value}
-                  size="small"
-                  fullWidth
-                  helperText={fieldState.error?.message ?? ''}
-                  error={!!fieldState.error?.message}
-                  onChange={field.onChange}
-                />
-              )}
-            />
-            <Controller
-              name="content"
-              control={control}
-              render={({ field, fieldState }) => (
-                <TextField
-                  id={field.name}
-                  label="本文"
-                  value={field.value}
-                  size="small"
-                  fullWidth
-                  multiline
-                  rows={15}
-                  helperText={fieldState.error?.message ?? ''}
-                  error={!!fieldState.error?.message}
-                  onChange={field.onChange}
-                />
-              )}
-            />
-            <Controller
-              name="next"
-              control={control}
-              render={({ field, fieldState }) => (
-                <FormControl
-                  size="small"
-                  fullWidth
-                  error={!!fieldState.error?.message}
-                >
-                  <InputLabel>次の人</InputLabel>
-                  <Select
-                    id={field.name}
-                    label="次の人"
-                    onChange={field.onChange}
-                    value={field.value}
-                  >
-                    {allMember.contents.map((m) => (
-                      <MenuItem key={m.id} value={m.name}>
-                        {m.dispName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <FormHelperText>
-                    {fieldState.error?.message ?? ''}
-                  </FormHelperText>
-                </FormControl>
-              )}
-            />
-          </Paper>
-          <Box
-            display="flex"
-            flexDirection="row-reverse"
-            justifyContent="right"
-          >
-            <Box ml={1}>
-              <Button variant="contained" color="primary" type="submit">
-                保存
-              </Button>
-            </Box>
-            <Link href="/" passHref>
-              <Button variant="outlined" color="primary">
-                キャンセル
-              </Button>
-            </Link>
-          </Box>
-        </form>
+        <ArticleForm
+          name={name}
+          allMember={allMember}
+          control={control}
+          handleSubmit={handleSubmit}
+          handleCancel={handleCancel}
+        />
       </Container>
     </>
   );
@@ -181,12 +77,17 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
     }
   });
 
+  const handleCancel = () => {
+    router.push('/');
+  };
+
   return (
     <NewArticle
       name={context?.member?.dispName ?? null}
       allMember={allMember}
       control={control}
       handleSubmit={_handleSubmit}
+      handleCancel={handleCancel}
     />
   );
 };
