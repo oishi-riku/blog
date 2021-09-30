@@ -1,6 +1,7 @@
 import { FC, useContext } from 'react';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, IconButton, Box } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import { useForm, Control } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,6 +13,7 @@ import ArticleForm from 'components/templates/ArticleForm';
 import { Article as ArticleSingle } from 'domains/microCMS/models/article';
 import {
   updateArticle,
+  deleteArticle,
   getArticle,
   getAllArticles,
 } from 'domains/microCMS/services/article';
@@ -25,6 +27,7 @@ type Props = {
   control: Control<Input>;
   handleSubmit: () => void;
   handleCancel: () => void;
+  handleDelete: () => void;
 };
 
 type StaticProps = {
@@ -40,6 +43,7 @@ const EditArticle: FC<Props> = ({
   control,
   handleSubmit,
   handleCancel,
+  handleDelete,
 }) => {
   return (
     <>
@@ -51,9 +55,14 @@ const EditArticle: FC<Props> = ({
         />
       </Head>
       <Container>
-        <Typography variant="h1" sx={{ mb: 5 }}>
-          編集
-        </Typography>
+        <Box display="flex" alignItems="center" mb={5}>
+          <Typography variant="h1" sx={{ mr: 1 }}>
+            編集
+          </Typography>
+          <IconButton aria-label="削除" onClick={handleDelete}>
+            <Delete />
+          </IconButton>
+        </Box>
         <ArticleForm
           name={name}
           allMember={allMember}
@@ -98,6 +107,17 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
     router.push(`/articles/${article.id}`);
   };
 
+  const handleDelete = async () => {
+    if (window.confirm('削除してよろしいでしょうか？')) {
+      try {
+        await deleteArticle(article.id);
+        router.push('/');
+      } catch (error) {
+        window.alert('エラーが発生しました。');
+      }
+    }
+  };
+
   return (
     <EditArticle
       articleTitle={article.title}
@@ -106,6 +126,7 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
       control={control}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}
+      handleDelete={handleDelete}
     />
   );
 };

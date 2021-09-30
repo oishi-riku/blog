@@ -55,3 +55,14 @@ export const updateArticle = async <T>(
   });
   if (result.status >= 400) throw new Error();
 };
+
+export const deleteArticle = async (id: string): Promise<void> => {
+  const result = await fetch(`${BASE_ENDPOINT}/articles/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      'X-WRITE-API-KEY': X_WRITE_API_KEY,
+    },
+  });
+  if (result.status >= 400) throw new Error();
+};
