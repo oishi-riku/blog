@@ -40,3 +40,18 @@ export const createArticle = async <T>(payload: T): Promise<void> => {
   });
   if (result.status >= 400) throw new Error();
 };
+
+export const updateArticle = async <T>(
+  id: string,
+  payload: T
+): Promise<void> => {
+  const result = await fetch(`${BASE_ENDPOINT}/articles/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      'X-WRITE-API-KEY': X_WRITE_API_KEY,
+    },
+    body: JSON.stringify(payload),
+  });
+  if (result.status >= 400) throw new Error();
+};

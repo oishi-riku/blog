@@ -1,18 +1,23 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Container, Typography, Box, Paper } from '@mui/material';
-
 import Head from 'next/head';
+import Link from 'next/link';
+import { FC, useContext } from 'react';
+import { Container, Typography, Box, Paper, Button } from '@mui/material';
+import { Edit } from '@mui/icons-material';
+
 import ArticleArea from 'components/molecules/ArticleArea';
 import ArticleMeta from 'components/atoms/ArticleMeta';
 import { getArticle, getAllArticles } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
 import { Article as ArticleSingle } from 'domains/microCMS/models/article';
+import { MemberContext } from 'hooks/useMemberStore';
 
-type StaticProps = {
+type Props = {
   article: ArticleSingle;
+  isWriter: boolean;
 };
 
-const Article: NextPage<StaticProps> = ({ article }) => {
+const Article: FC<Props> = ({ article, isWriter }) => {
   return (
     <>
       <Head>
@@ -20,6 +25,15 @@ const Article: NextPage<StaticProps> = ({ article }) => {
         <meta name="description" content={`${article.title} 3-5 9人ブログ`} />
       </Head>
       <Container>
+        {isWriter && (
+          <Box display="flex" justifyContent="flex-end" mb={2}>
+            <Link href={`/articles/${article.id}/edit`} passHref>
+              <Button variant="outlined" endIcon={<Edit fontSize="small" />}>
+                編集
+              </Button>
+            </Link>
+          </Box>
+        )}
         <Paper sx={{ p: 2 }} component="article">
           <Box mb={3}>
             <Typography variant="h1">{article.title}</Typography>
@@ -32,18 +46,11 @@ const Article: NextPage<StaticProps> = ({ article }) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const articles = await getAllArticles({ limit: '10000' });
-  const paths = articles.contents.map((a) => ({
-    params: {
-      id: a.id,
-    },
-  }));
+const EnhancedArticle: NextPage<Props> = ({ article }) => {
+  const context = useContext(MemberContext);
+  const isWriter = context?.member?.name === article.name;
 
-  return {
-    paths,
-    fallback: 'blocking',
-  };
+  return <Article article={article} isWriter={isWriter} />;
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -61,8 +68,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       article: a,
     },
-    revalidate: 30,
+    revalidate: 10,
   };
 };
 
-export default Article;
+export const getStaticPaths: GetStaticPaths = async () => {
+  const articles = await getAllArticles({ limit: '10000' });
+  const paths = articles.contents.map((a) => ({
+    params: {
+      id: a.id,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+};
+
+export default EnhancedArticle;
