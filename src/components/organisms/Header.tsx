@@ -9,6 +9,7 @@ type Props = {
   isMenuOpen: boolean;
   handleClickMenuBtn: (event: MouseEvent<HTMLButtonElement>) => void;
   handleCloseMenu: () => void;
+  handleMoveSetting: () => void;
   handleLogout: () => void;
 };
 
@@ -18,6 +19,7 @@ const Header: FC<Props> = ({
   isMenuOpen,
   handleClickMenuBtn,
   handleCloseMenu,
+  handleMoveSetting,
   handleLogout,
 }) => {
   const menuId = 'global-menu';
@@ -40,7 +42,7 @@ const Header: FC<Props> = ({
           anchorEl={anchorEl}
           onClose={handleCloseMenu}
         >
-          <MenuItem>表示名変更</MenuItem>
+          <MenuItem onClick={handleMoveSetting}>設定</MenuItem>
           <MenuItem onClick={handleLogout}>ログアウト</MenuItem>
         </Menu>
       </Container>
@@ -60,6 +62,10 @@ const EnhancedHeader: FC = () => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
+  const handleMoveSetting = () => {
+    const currentPath = router.pathname;
+    router.push({ pathname: '/setting', query: { next: currentPath } });
+  };
   const handleLogout = () => {
     localStorage.removeItem('MEMBER_NAME');
     context?.memberDispatch({ type: 'DELETE', member: null });
@@ -73,6 +79,7 @@ const EnhancedHeader: FC = () => {
       isMenuOpen={isMenuOpen}
       handleClickMenuBtn={handleClickMenu}
       handleCloseMenu={handleCloseMenu}
+      handleMoveSetting={handleMoveSetting}
       handleLogout={handleLogout}
     />
   );
