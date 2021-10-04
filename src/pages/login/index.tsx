@@ -8,8 +8,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import useAllMember from 'hooks/useAllMember';
 import { MemberContext } from 'hooks/useMemberStore';
-import { Input, scheme } from 'validation/member';
-import { setMember, convertMember } from 'helper/member';
+import { Input, scheme } from 'validation/login';
+import { convertMember } from 'helper/member';
 
 type Props = {
   control: Control<Input>;
@@ -89,7 +89,7 @@ const EnhancedLogin: NextPage = () => {
       context?.memberDispatch({
         type: 'SET',
         member: target
-          ? { name: target.name, dispName: target.dispName }
+          ? { id: target.id, name: target.name, dispName: target.dispName }
           : null,
       });
       localStorage.setItem('MEMBER_NAME', name);
