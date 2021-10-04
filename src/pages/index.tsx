@@ -23,26 +23,30 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
         <Typography variant="h1" align="center" sx={{ mb: 5 }}>
           9人
         </Typography>
-        <Box display="flex" justifyContent="right" mb={2}>
+        <Box display="flex" justifyContent="flex-end" mb={2}>
           <Link href="/articles/new/" passHref>
             <Button variant="contained" color="primary">
               新規作成
             </Button>
           </Link>
         </Box>
-        <Grid container spacing={2} component="ul">
-          {articles.contents.map((a) => (
-            <Grid key={a.id} item xs={12} sm={6} component="li">
-              <ArticleCard
-                title={a.title}
-                date={a.createdAt}
-                name={a.dispName}
-                content={a.content}
-                href={`/articles/${a.id}`}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {(articles.contents.length === 0 && (
+          <Typography>投稿がありません</Typography>
+        )) || (
+          <Grid container spacing={2} component="ul">
+            {articles.contents.map((a) => (
+              <Grid key={a.id} item xs={12} sm={6} component="li">
+                <ArticleCard
+                  title={a.title}
+                  date={a.createdAt}
+                  name={a.dispName}
+                  content={a.content}
+                  href={`/articles/${a.id}`}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Container>
     </>
   );

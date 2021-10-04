@@ -1,16 +1,15 @@
 import { createContext, useReducer, Dispatch } from 'react';
-import { Item } from 'domains/microCMS/models/member';
+import { Member as M } from 'domains/microCMS/models/member';
 
-type Action = { type: 'SET' | 'DELETE'; member: Member };
-
-type Member = Item | null;
+export type Member = Pick<M, 'id' | 'name' | 'dispName'>;
+type Action = { type: 'SET' | 'DELETE'; member: Member | null };
 
 const MemberContext = createContext<{
-  member: Member;
+  member: Member | null;
   memberDispatch: Dispatch<Action>;
 } | null>(null);
 
-const reducer = (state: Member, action: Action) => {
+const reducer = (state: Member | null, action: Action) => {
   switch (action.type) {
     case 'SET':
       return action.member;

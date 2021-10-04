@@ -8,8 +8,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import useAllMember from 'hooks/useAllMember';
 import { MemberContext } from 'hooks/useMemberStore';
-import { Input, scheme } from 'validation/member';
-import { setMember, convertMember } from 'helper/member';
+import { Input, scheme } from 'validation/login';
+import { convertMember } from 'helper/member';
 
 type Props = {
   control: Control<Input>;
@@ -44,7 +44,7 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
                   <TextField
                     id={field.name}
                     type="text"
-                    label="名前"
+                    label="名前（漢字フルネーム）"
                     value={field.value}
                     size="small"
                     fullWidth
@@ -55,7 +55,7 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
                 )}
               />
             </Box>
-            <Box display="flex" justifyContent="right">
+            <Box display="flex" justifyContent="flex-end">
               <Button variant="contained" color="primary" type="submit">
                 ログイン
               </Button>
@@ -89,7 +89,7 @@ const EnhancedLogin: NextPage = () => {
       context?.memberDispatch({
         type: 'SET',
         member: target
-          ? { name: target.name, dispName: target.dispName }
+          ? { id: target.id, name: target.name, dispName: target.dispName }
           : null,
       });
       localStorage.setItem('MEMBER_NAME', name);

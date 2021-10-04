@@ -1,6 +1,16 @@
 import { FC, useState, useContext, MouseEvent } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { AppBar, Container, Box, Button, Menu, MenuItem } from '@mui/material';
+import {
+  AppBar,
+  Container,
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+} from '@mui/material';
+import { Home } from '@mui/icons-material';
 import { MemberContext } from 'hooks/useMemberStore';
 
 type Props = {
@@ -9,6 +19,7 @@ type Props = {
   isMenuOpen: boolean;
   handleClickMenuBtn: (event: MouseEvent<HTMLButtonElement>) => void;
   handleCloseMenu: () => void;
+  handleMoveSetting: () => void;
   handleLogout: () => void;
 };
 
@@ -18,21 +29,40 @@ const Header: FC<Props> = ({
   isMenuOpen,
   handleClickMenuBtn,
   handleCloseMenu,
+  handleMoveSetting,
   handleLogout,
 }) => {
   const menuId = 'global-menu';
   return (
     <AppBar position="sticky">
       <Container>
-        <Box display="flex" justifyContent="flex-end" py={0.5} minHeight={44}>
-          <Button
-            sx={{ color: 'common.white' }}
-            onClick={handleClickMenuBtn}
-            aria-controls={menuId}
-            aria-expanded={isMenuOpen}
-          >
-            {name}
-          </Button>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          py={0.5}
+          minHeight={44}
+        >
+          <Box>
+            <Link href="/" passHref>
+              <IconButton
+                sx={{ color: 'common.white' }}
+                aria-label="トップページ"
+              >
+                <Home />
+              </IconButton>
+            </Link>
+          </Box>
+          <Box>
+            <Button
+              sx={{ color: 'common.white' }}
+              onClick={handleClickMenuBtn}
+              aria-controls={menuId}
+              aria-expanded={isMenuOpen}
+            >
+              {name}
+            </Button>
+          </Box>
         </Box>
         <Menu
           id={menuId}
@@ -40,7 +70,7 @@ const Header: FC<Props> = ({
           anchorEl={anchorEl}
           onClose={handleCloseMenu}
         >
-          <MenuItem>表示名変更</MenuItem>
+          <MenuItem onClick={handleMoveSetting}>設定</MenuItem>
           <MenuItem onClick={handleLogout}>ログアウト</MenuItem>
         </Menu>
       </Container>
@@ -60,6 +90,11 @@ const EnhancedHeader: FC = () => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
+  const handleMoveSetting = () => {
+    const currentPath = router.pathname;
+    router.push({ pathname: '/setting', query: { next: currentPath } });
+    handleCloseMenu();
+  };
   const handleLogout = () => {
     localStorage.removeItem('MEMBER_NAME');
     context?.memberDispatch({ type: 'DELETE', member: null });
@@ -73,6 +108,7 @@ const EnhancedHeader: FC = () => {
       isMenuOpen={isMenuOpen}
       handleClickMenuBtn={handleClickMenu}
       handleCloseMenu={handleCloseMenu}
+      handleMoveSetting={handleMoveSetting}
       handleLogout={handleLogout}
     />
   );

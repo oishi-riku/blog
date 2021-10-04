@@ -25,7 +25,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
       memberDispatch({
         type: 'SET',
         member: target
-          ? { name: target.name, dispName: target.dispName }
+          ? { id: target.id, name: target.name, dispName: target.dispName }
           : null,
       });
     }
@@ -38,23 +38,25 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <MemberContext.Provider value={{ member, memberDispatch }}>
-        <Layout
-          isLoginPage={pathname === '/login'}
-          nextWriter={
-            members && nextWriter
-              ? {
-                  name: nextWriter,
-                  dispName:
-                    members.contents.find((m) => m.name === nextWriter)
-                      ?.dispName ?? '',
-                }
-              : null
-          }
-        >
-          <Component {...pageProps} />
-        </Layout>
-      </MemberContext.Provider>
+      {(member || pathname === '/login') && (
+        <MemberContext.Provider value={{ member, memberDispatch }}>
+          <Layout
+            isLoginPage={pathname === '/login'}
+            nextWriter={
+              members && nextWriter
+                ? {
+                    name: nextWriter,
+                    dispName:
+                      members.contents.find((m) => m.name === nextWriter)
+                        ?.dispName ?? '',
+                  }
+                : null
+            }
+          >
+            <Component {...pageProps} />
+          </Layout>
+        </MemberContext.Provider>
+      )}
     </ThemeProvider>
   );
 };

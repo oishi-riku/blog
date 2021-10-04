@@ -1,6 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 
 let theme = createTheme({
+  typography: {
+    fontFamily: '"Roboto", "Noto Sans JP", "Arial", sans-serif',
+  },
   palette: {
     common: {
       black: '#2f2e33',
@@ -27,7 +30,6 @@ let theme = createTheme({
 
 theme = createTheme(theme, {
   typography: {
-    fontFamily: ['Roboto', 'Noto Sans JP', 'Arial', 'sans-serif'].join(','),
     h1: {
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(28),
@@ -67,6 +69,7 @@ theme = createTheme(theme, {
           lineHeight: '1.75',
           color: theme.palette.common.black,
           backgroundColor: theme.palette.grey[50],
+          fontFamily: theme.typography.fontFamily,
         },
         ul: {
           listStyleType: 'none',
@@ -85,6 +88,13 @@ theme = createTheme(theme, {
         root: {
           color: 'inherit',
           backgroundColor: theme.palette.secondary.main,
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
         },
       },
     },
