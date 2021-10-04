@@ -1,6 +1,16 @@
 import { FC, useState, useContext, MouseEvent } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { AppBar, Container, Box, Button, Menu, MenuItem } from '@mui/material';
+import {
+  AppBar,
+  Container,
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+} from '@mui/material';
+import { Home } from '@mui/icons-material';
 import { MemberContext } from 'hooks/useMemberStore';
 
 type Props = {
@@ -26,15 +36,33 @@ const Header: FC<Props> = ({
   return (
     <AppBar position="sticky">
       <Container>
-        <Box display="flex" justifyContent="flex-end" py={0.5} minHeight={44}>
-          <Button
-            sx={{ color: 'common.white' }}
-            onClick={handleClickMenuBtn}
-            aria-controls={menuId}
-            aria-expanded={isMenuOpen}
-          >
-            {name}
-          </Button>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          py={0.5}
+          minHeight={44}
+        >
+          <Box>
+            <Link href="/" passHref>
+              <IconButton
+                sx={{ color: 'common.white' }}
+                aria-label="トップページ"
+              >
+                <Home />
+              </IconButton>
+            </Link>
+          </Box>
+          <Box>
+            <Button
+              sx={{ color: 'common.white' }}
+              onClick={handleClickMenuBtn}
+              aria-controls={menuId}
+              aria-expanded={isMenuOpen}
+            >
+              {name}
+            </Button>
+          </Box>
         </Box>
         <Menu
           id={menuId}
