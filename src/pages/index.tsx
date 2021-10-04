@@ -23,7 +23,7 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
         <Typography variant="h1" align="center" sx={{ mb: 5 }}>
           9人
         </Typography>
-        <Box display="flex" justifyContent="right" mb={2}>
+        <Box display="flex" justifyContent="flex-end" mb={2}>
           <Link href="/articles/new/" passHref>
             <Button variant="contained" color="primary">
               新規作成

@@ -55,7 +55,7 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
                 )}
               />
             </Box>
-            <Box display="flex" justifyContent="right">
+            <Box display="flex" justifyContent="flex-end">
               <Button variant="contained" color="primary" type="submit">
                 ログイン
               </Button>

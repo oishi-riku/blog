@@ -61,11 +61,7 @@ const Setting: FC<Props> = ({ control, handleSubmit, handleCancel }) => {
               )}
             />
           </Paper>
-          <Box
-            display="flex"
-            flexDirection="row-reverse"
-            justifyContent="right"
-          >
+          <Box display="flex" flexDirection="row-reverse">
             <Box ml={1}>
               <Button variant="contained" color="primary" type="submit">
                 保存
