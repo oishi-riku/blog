@@ -93,6 +93,7 @@ const EnhancedHeader: FC = () => {
   const handleMoveSetting = () => {
     const currentPath = router.pathname;
     router.push({ pathname: '/setting', query: { next: currentPath } });
+    handleCloseMenu();
   };
   const handleLogout = () => {
     localStorage.removeItem('MEMBER_NAME');
