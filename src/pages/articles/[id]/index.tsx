@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FC, useContext } from 'react';
+import { FC, useContext, useEffect, useCallback, useState } from 'react';
 import { Container, Typography, Box, Paper, Button } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 
@@ -46,9 +46,23 @@ const Article: FC<Props> = ({ article, isWriter }) => {
   );
 };
 
-const EnhancedArticle: NextPage<Props> = ({ article }) => {
+const EnhancedArticle: NextPage<Props> = ({ article: a }) => {
   const context = useContext(MemberContext);
+  const [article, setArticle] = useState(a);
   const isWriter = context?.member?.name === article.name;
+
+  const resetIsWriterArticle = useCallback(async () => {
+    if (!isWriter) return;
+
+    const _article = await getArticle(a.id);
+    setArticle((current) => {
+      return { ...current, ..._article };
+    });
+  }, [isWriter, a.id]);
+
+  useEffect(() => {
+    resetIsWriterArticle();
+  }, [resetIsWriterArticle]);
 
   return <Article article={article} isWriter={isWriter} />;
 };
