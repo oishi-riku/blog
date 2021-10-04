@@ -44,7 +44,7 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
                   <TextField
                     id={field.name}
                     type="text"
-                    label="名前"
+                    label="名前（漢字フルネーム）"
                     value={field.value}
                     size="small"
                     fullWidth

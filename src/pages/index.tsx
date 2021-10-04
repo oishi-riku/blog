@@ -30,19 +30,23 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
             </Button>
           </Link>
         </Box>
-        <Grid container spacing={2} component="ul">
-          {articles.contents.map((a) => (
-            <Grid key={a.id} item xs={12} sm={6} component="li">
-              <ArticleCard
-                title={a.title}
-                date={a.createdAt}
-                name={a.dispName}
-                content={a.content}
-                href={`/articles/${a.id}`}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {(articles.contents.length === 0 && (
+          <Typography>投稿がありません</Typography>
+        )) || (
+          <Grid container spacing={2} component="ul">
+            {articles.contents.map((a) => (
+              <Grid key={a.id} item xs={12} sm={6} component="li">
+                <ArticleCard
+                  title={a.title}
+                  date={a.createdAt}
+                  name={a.dispName}
+                  content={a.content}
+                  href={`/articles/${a.id}`}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Container>
     </>
   );
