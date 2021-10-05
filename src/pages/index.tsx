@@ -1,11 +1,11 @@
-import type { NextPage } from 'next';
-import Link from 'next/link';
 import { Typography, Box, Container, Grid, Button } from '@mui/material';
-
+import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
+
 import ArticleCard from 'components/molecules/ArticleCard';
-import { getAllArticles } from 'domains/microCMS/services/article';
 import { Articles } from 'domains/microCMS/models/article';
+import { getAllArticles } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
 
 type StaticProps = {

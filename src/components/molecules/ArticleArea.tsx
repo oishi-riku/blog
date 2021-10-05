@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { Typography } from '@mui/material';
+import { FC } from 'react';
 
 type Props = {
   content: string;

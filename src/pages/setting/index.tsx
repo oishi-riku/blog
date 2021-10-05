@@ -1,6 +1,4 @@
-import { FC, useContext } from 'react';
-import type { NextPage } from 'next';
-import Head from 'next/head';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Button,
   Box,
@@ -9,12 +7,14 @@ import {
   Container,
   Typography,
 } from '@mui/material';
+import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { FC, useContext } from 'react';
 import { useForm, Control, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, scheme } from 'validation/setting';
 import { updateSetting } from 'domains/microCMS/services/setting';
 import { MemberContext } from 'hooks/useMemberStore';
+import { Input, scheme } from 'validation/setting';
 
 type Props = {
   control: Control<Input>;
@@ -27,7 +27,7 @@ const Setting: FC<Props> = ({ control, handleSubmit, handleCancel }) => {
     <>
       <Head>
         <title>設定 | 3-5 9人ブログ</title>
-        <meta name="description" content="3-5 9人ブログ 設定" />
+        <meta name="description" content="設定 3-5 9人ブログ" />
       </Head>
       <Container>
         <Typography variant="h1" sx={{ mb: 5 }}>

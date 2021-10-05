@@ -1,6 +1,6 @@
 import useSWR from 'swr';
-import fetcher from 'domains/microCMS/services/fetcher';
 import { Articles } from 'domains/microCMS/models/article';
+import fetcher from 'domains/microCMS/services/fetcher';
 
 const BASE_ENDPOINT = process.env.NEXT_PUBLIC_MICRO_CMS_BASE_ENDPOINT || '';
 
@@ -16,6 +16,7 @@ const useNextWriter = () => {
   if (!data) {
     return { isLoading: true };
   }
+
   return { nextWriter: data.contents[0].next };
 };
 

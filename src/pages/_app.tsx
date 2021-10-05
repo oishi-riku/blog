@@ -1,14 +1,14 @@
-import type { AppProps } from 'next/app';
-import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect, useCallback } from 'react';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from 'theme';
-import useAllMember from 'hooks/useAllMember';
-import useNextWriter from 'hooks/useNextWriter';
-import useMemberStore, { MemberContext } from 'hooks/useMemberStore';
+import type { NextPage } from 'next';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import { useEffect, useCallback } from 'react';
 import Layout from 'components/templates/Layout';
+import useAllMember from 'hooks/useAllMember';
+import useMemberStore, { MemberContext } from 'hooks/useMemberStore';
+import useNextWriter from 'hooks/useNextWriter';
+import theme from 'theme';
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();

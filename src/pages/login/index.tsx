@@ -1,15 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Paper, Button, Typography, Box, TextField } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
-import { Paper, Button, Typography, Box, TextField } from '@mui/material';
 import { useForm, Control, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 
+import { convertMember } from 'helper/member';
 import useAllMember from 'hooks/useAllMember';
 import { MemberContext } from 'hooks/useMemberStore';
 import { Input, scheme } from 'validation/login';
-import { convertMember } from 'helper/member';
 
 type Props = {
   control: Control<Input>;
@@ -23,7 +23,7 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
     <>
       <Head>
         <title>ログイン | 3-5 9人ブログ</title>
-        <meta name="description" content="3-5 9人ブログ ログイン" />
+        <meta name="description" content="ログイン 3-5 9人ブログ" />
       </Head>
       <Box mt={10} mx="auto" px={2} maxWidth={750}>
         <Paper

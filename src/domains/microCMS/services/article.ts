@@ -16,6 +16,7 @@ export const getAllArticles = async (query?: Query): Promise<Articles> => {
     },
   });
   const json = (await result.json()) as Articles;
+
   return json;
 };
 
@@ -26,6 +27,7 @@ export const getArticle = async (id: string): Promise<Article> => {
     },
   });
   const json = (await result.json()) as Article;
+
   return json;
 };
 

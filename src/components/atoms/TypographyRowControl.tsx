@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { Typography } from '@mui/material';
+import { FC } from 'react';
 
 type Props = {
   maxRow: 1 | 2 | 3 | 4 | 5;

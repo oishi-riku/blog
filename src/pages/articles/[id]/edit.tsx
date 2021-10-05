@@ -1,24 +1,24 @@
-import { FC, useContext } from 'react';
-import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Container, Typography, IconButton, Box } from '@mui/material';
-import { Delete } from '@mui/icons-material';
-import { useRouter } from 'next/router';
-import { useForm, Control } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, scheme } from 'validation/article';
-import { AllMember } from 'domains/microCMS/models/member';
-import { getAllMember } from 'domains/microCMS/services/member';
-import { MemberContext } from 'hooks/useMemberStore';
+import { Delete } from '@mui/icons-material';
+import { Container, Typography, IconButton, Box } from '@mui/material';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { FC, useContext } from 'react';
+import { useForm, Control } from 'react-hook-form';
+
 import ArticleForm from 'components/templates/ArticleForm';
 import { Article as ArticleSingle } from 'domains/microCMS/models/article';
+import { AllMember } from 'domains/microCMS/models/member';
 import {
   updateArticle,
   deleteArticle,
   getArticle,
   getAllArticles,
 } from 'domains/microCMS/services/article';
-
-import Head from 'next/head';
+import { getAllMember } from 'domains/microCMS/services/member';
+import { MemberContext } from 'hooks/useMemberStore';
+import { Input, scheme } from 'validation/article';
 
 type Props = {
   articleTitle: string;
@@ -51,7 +51,7 @@ const EditArticle: FC<Props> = ({
         <title>{`編集 | ${articleTitle} | 3-5 9人ブログ`}</title>
         <meta
           name="description"
-          content={`3-5 9人ブログ ${articleTitle}の内容の編集ページ`}
+          content={`${articleTitle}の内容の編集ページ 3-5 9人ブログ`}
         />
       </Head>
       <Container>
