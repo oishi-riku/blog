@@ -91,8 +91,7 @@ const EnhancedHeader: FC = () => {
     setAnchorEl(null);
   };
   const handleMoveSetting = () => {
-    const currentPath = router.pathname;
-    router.push({ pathname: '/setting', query: { next: currentPath } });
+    router.push({ pathname: '/setting', query: { next: location.pathname } });
     handleCloseMenu();
   };
   const handleLogout = () => {
