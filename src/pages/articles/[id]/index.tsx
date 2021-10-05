@@ -21,7 +21,7 @@ const Article: FC<Props> = ({ article, isWriter }) => {
   return (
     <>
       <Head>
-        <title>{`${article.title} 3-5 9人ブログ`}</title>
+        <title>{`${article.title} | 3-5 9人ブログ`}</title>
         <meta name="description" content={`${article.title} 3-5 9人ブログ`} />
       </Head>
       <Container>

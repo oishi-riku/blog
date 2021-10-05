@@ -23,7 +23,7 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
     <>
       <Head>
         <title>ログイン | 3-5 9人ブログ</title>
-        <meta name="description" content="3-5 9人ブログ ログイン" />
+        <meta name="description" content="ログイン 3-5 9人ブログ" />
       </Head>
       <Box mt={10} mx="auto" px={2} maxWidth={750}>
         <Paper

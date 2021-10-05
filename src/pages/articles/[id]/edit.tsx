@@ -51,7 +51,7 @@ const EditArticle: FC<Props> = ({
         <title>{`編集 | ${articleTitle} | 3-5 9人ブログ`}</title>
         <meta
           name="description"
-          content={`3-5 9人ブログ ${articleTitle}の内容の編集ページ`}
+          content={`${articleTitle}の内容の編集ページ 3-5 9人ブログ`}
         />
       </Head>
       <Container>

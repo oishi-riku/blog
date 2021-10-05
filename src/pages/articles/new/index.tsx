@@ -32,7 +32,7 @@ const NewArticle: FC<Props> = ({
     <>
       <Head>
         <title>新規作成 | 3-5 9人ブログ</title>
-        <meta name="description" content="3-5 9人ブログ 新規作成" />
+        <meta name="description" content="新規作成 3-5 9人ブログ" />
       </Head>
       <Container>
         <Typography variant="h1" sx={{ mb: 5 }}>

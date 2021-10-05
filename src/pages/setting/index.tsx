@@ -27,7 +27,7 @@ const Setting: FC<Props> = ({ control, handleSubmit, handleCancel }) => {
     <>
       <Head>
         <title>設定 | 3-5 9人ブログ</title>
-        <meta name="description" content="3-5 9人ブログ 設定" />
+        <meta name="description" content="設定 3-5 9人ブログ" />
       </Head>
       <Container>
         <Typography variant="h1" sx={{ mb: 5 }}>
