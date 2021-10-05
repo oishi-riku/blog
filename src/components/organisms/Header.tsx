@@ -1,6 +1,4 @@
-import { FC, useState, useContext, MouseEvent } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { Home } from '@mui/icons-material';
 import {
   AppBar,
   Container,
@@ -10,7 +8,9 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
-import { Home } from '@mui/icons-material';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FC, useState, useContext, MouseEvent } from 'react';
 import { MemberContext } from 'hooks/useMemberStore';
 
 type Props = {
@@ -33,6 +33,7 @@ const Header: FC<Props> = ({
   handleLogout,
 }) => {
   const menuId = 'global-menu';
+
   return (
     <AppBar position="sticky">
       <Container>

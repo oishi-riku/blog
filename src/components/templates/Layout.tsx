@@ -1,8 +1,8 @@
-import { FC, useState } from 'react';
 import { Box, Snackbar, Slide } from '@mui/material';
+import { FC, useState } from 'react';
 import { InView } from 'react-intersection-observer';
-import Header from 'components/organisms/Header';
 import Footer from 'components/organisms/Footer';
+import Header from 'components/organisms/Header';
 
 type Props = {
   nextWriter: { name: string; dispName: string } | null;

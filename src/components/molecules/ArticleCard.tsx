@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import Link from 'next/link';
 import { Typography, Box, Card, CardActionArea } from '@mui/material';
+import Link from 'next/link';
+import { FC } from 'react';
 
 import ArticleMeta from 'components/atoms/ArticleMeta';
 import TypographyRowControl from 'components/atoms/TypographyRowControl';
