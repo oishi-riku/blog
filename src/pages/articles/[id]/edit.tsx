@@ -23,7 +23,11 @@ import { Input, scheme } from 'validation/article';
 type Props = {
   articleTitle: string;
   name: string | null;
-  allMember: AllMember;
+  allMember: {
+    id: string;
+    name: string;
+    dispName: string;
+  }[];
   control: Control<Input>;
   handleSubmit: () => void;
   handleCancel: () => void;
@@ -122,7 +126,11 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
     <EditArticle
       articleTitle={article.title}
       name={context?.member?.dispName ?? null}
-      allMember={allMember}
+      allMember={allMember.contents.map((c) => ({
+        id: c.id,
+        name: c.name,
+        dispName: c.dispName,
+      }))}
       control={control}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}

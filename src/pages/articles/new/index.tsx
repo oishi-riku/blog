@@ -14,7 +14,11 @@ import { Input, scheme } from 'validation/article';
 
 type Props = {
   name: string | null;
-  allMember: AllMember;
+  allMember: {
+    id: string;
+    name: string;
+    dispName: string;
+  }[];
   control: Control<Input>;
   handleSubmit: () => void;
   handleCancel: () => void;
@@ -83,7 +87,11 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
   return (
     <NewArticle
       name={context?.member?.dispName ?? null}
-      allMember={allMember}
+      allMember={allMember.contents.map((c) => ({
+        id: c.id,
+        name: c.name,
+        dispName: c.dispName,
+      }))}
       control={control}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}
