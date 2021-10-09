@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Container, Typography } from '@mui/material';
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC, useContext, useState } from 'react';
 import { useForm, Control } from 'react-hook-form';
+
 import LoadingOverflow from 'components/atoms/LoadingOverflow';
 import ArticleForm from 'components/templates/ArticleForm';
 import { AllMember } from 'domains/microCMS/models/member';
@@ -88,14 +89,14 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
           value: payload.next,
         },
       });
-      router.push('/');
+      void router.push('/');
     } catch (error) {
       window.alert('エラーが発生しました。');
     }
   });
 
   const handleCancel = () => {
-    router.push('/');
+    void router.push('/');
   };
 
   return (
@@ -114,7 +115,7 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const allMember = await getAllMember();
 
   return {

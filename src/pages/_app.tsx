@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback } from 'react';
+
 import Layout from 'components/templates/Layout';
 import useAllMember from 'hooks/useAllMember';
 import useNextWriter from 'hooks/useNextWriter';
@@ -31,7 +32,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
 
   const checkAccount = useCallback(() => {
     const MEMBER_NAME = localStorage.getItem('MEMBER_NAME');
-    if (!MEMBER_NAME) return router.replace('/login');
+    if (!MEMBER_NAME) void router.replace('/login');
     if (members) {
       const target = members.contents.find((m) => m.name === MEMBER_NAME);
       storeDispatch({

@@ -1,4 +1,5 @@
 import { createContext, useReducer, Dispatch } from 'react';
+
 import { Member } from 'domains/microCMS/models/member';
 
 export type Store = {
@@ -37,6 +38,7 @@ const reducer = (state: Store, action: Action) => {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const useStore = () => {
   const [state, dispatch] = useReducer(reducer, {
     member: null,

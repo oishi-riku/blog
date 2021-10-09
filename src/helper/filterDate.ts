@@ -7,7 +7,7 @@ type Props = {
   withTime: boolean;
 };
 
-const filterDate = ({ date, withTime = false }: Props) => {
+const filterDate = ({ date, withTime = false }: Props): string => {
   dayjs.extend(utc);
   dayjs.extend(timezone);
 

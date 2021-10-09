@@ -12,6 +12,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC, useContext, useState } from 'react';
 import { useForm, Control, Controller } from 'react-hook-form';
+
 import LoadingOverflow from 'components/atoms/LoadingOverflow';
 import { updateSetting } from 'domains/microCMS/services/setting';
 import { StoreContext } from 'hooks/useStore';
@@ -113,14 +114,14 @@ const EnhancedSetting: NextPage = () => {
         },
       });
       setIsLoading(false);
-      router.push(query.next ?? '/');
+      void router.push(query.next ?? '/');
     } catch (error) {
       window.alert('エラーが発生しました。');
     }
   });
 
   const handleCancel = () => {
-    router.push(query.next ?? '/');
+    void router.push(query.next ?? '/');
   };
 
   return (

@@ -115,14 +115,14 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
           value: payload.next,
         },
       });
-      router.push(`/articles/${article.id}`);
+      void router.push(`/articles/${article.id}`);
     } catch (error) {
       window.alert('エラーが発生しました。');
     }
   });
 
   const handleCancel = () => {
-    router.push(`/articles/${article.id}`);
+    void router.push(`/articles/${article.id}`);
   };
 
   const handleDelete = async () => {
@@ -132,7 +132,7 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
 
         await deleteArticle(article.id);
         setIsLoading(false);
-        router.push('/');
+        void router.push('/');
       } catch (error) {
         window.alert('エラーが発生しました。');
       }
