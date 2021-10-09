@@ -84,7 +84,7 @@ const EditArticle: FC<Props> = ({
 };
 
 const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
-  const { store } = useContext(StoreContext);
+  const { store, storeDispatch } = useContext(StoreContext);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -108,6 +108,13 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
         name: store.member.name,
       });
       setIsLoading(false);
+      storeDispatch({
+        type: 'UPDATE',
+        payload: {
+          name: 'next',
+          value: payload.next,
+        },
+      });
       router.push(`/articles/${article.id}`);
     } catch (error) {
       window.alert('エラーが発生しました。');

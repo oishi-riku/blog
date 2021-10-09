@@ -59,11 +59,11 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
           <Layout
             isLoginPage={pathname === '/login'}
             nextWriter={
-              members && nextWriter
+              members && store.next
                 ? {
-                    name: nextWriter,
+                    name: store.next,
                     dispName:
-                      members.contents.find((m) => m.name === nextWriter)
+                      members.contents.find((m) => m.name === store.next)
                         ?.dispName ?? '',
                   }
                 : null

@@ -60,7 +60,7 @@ const NewArticle: FC<Props> = ({
 const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
   allMember,
 }) => {
-  const { store } = useContext(StoreContext);
+  const { store, storeDispatch } = useContext(StoreContext);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -81,6 +81,13 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 
       await createArticle({ ...payload, name: store.member.name });
       setIsLoading(false);
+      storeDispatch({
+        type: 'UPDATE',
+        payload: {
+          name: 'next',
+          value: payload.next,
+        },
+      });
       router.push('/');
     } catch (error) {
       window.alert('エラーが発生しました。');
