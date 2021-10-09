@@ -8,7 +8,7 @@ import { useForm, Control, Controller } from 'react-hook-form';
 
 import { convertMember } from 'helper/member';
 import useAllMember from 'hooks/useAllMember';
-import { MemberContext } from 'hooks/useMemberStore';
+import { StoreContext } from 'hooks/useStore';
 import { Input, scheme } from 'validation/login';
 
 type Props = {
@@ -70,7 +70,7 @@ const Login: NextPage<Props> = ({ control, handleSubmit }) => {
 const EnhancedLogin: NextPage = () => {
   const router = useRouter();
   const { members } = useAllMember();
-  const context = useContext(MemberContext);
+  const { storeDispatch } = useContext(StoreContext);
   const { handleSubmit, control } = useForm<Input>({
     resolver: yupResolver(scheme),
     defaultValues: {
@@ -86,11 +86,14 @@ const EnhancedLogin: NextPage = () => {
     if (members && name) {
       const target = members.contents.find((m) => m.name === name);
 
-      context?.memberDispatch({
-        type: 'SET',
-        member: target
-          ? { id: target.id, name: target.name, dispName: target.dispName }
-          : null,
+      storeDispatch({
+        type: 'UPDATE',
+        payload: {
+          name: 'member',
+          value: target
+            ? { id: target.id, name: target.name, dispName: target.dispName }
+            : null,
+        },
       });
       localStorage.setItem('MEMBER_NAME', name);
       router.push('/');

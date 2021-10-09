@@ -1,18 +1,27 @@
-import { Typography, Box, Container, Grid, Button } from '@mui/material';
+import {
+  Typography,
+  Box,
+  Container,
+  Grid,
+  Button,
+  CircularProgress,
+} from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { FC } from 'react';
 
 import ArticleCard from 'components/molecules/ArticleCard';
 import { Articles } from 'domains/microCMS/models/article';
-import { getAllArticles } from 'domains/microCMS/services/article';
-import { getAllMember } from 'domains/microCMS/services/member';
+import useAllMember from 'hooks/useAllMember';
+import useArticles from 'hooks/useArticles';
 
-type StaticProps = {
-  articles: Articles;
+type Props = {
+  articles: Articles | null;
+  isLoading: boolean;
 };
 
-const Home: NextPage<StaticProps> = ({ articles }) => {
+const Home: FC<Props> = ({ articles, isLoading }) => {
   return (
     <>
       <Head>
@@ -30,48 +39,59 @@ const Home: NextPage<StaticProps> = ({ articles }) => {
             </Button>
           </Link>
         </Box>
-        {(articles.contents.length === 0 && (
-          <Typography>投稿がありません</Typography>
-        )) || (
-          <Grid container spacing={2} component="ul">
-            {articles.contents.map((a) => (
-              <Grid key={a.id} item xs={12} sm={6} component="li">
-                <ArticleCard
-                  title={a.title}
-                  date={a.createdAt}
-                  name={a.dispName}
-                  content={a.content}
-                  href={`/articles/${a.id}`}
-                />
+        {articles && (
+          <>
+            {(articles.contents.length === 0 && (
+              <Typography>投稿がありません</Typography>
+            )) || (
+              <Grid container spacing={2} component="ul">
+                {articles.contents.map((a) => (
+                  <Grid key={a.id} item xs={12} sm={6} component="li">
+                    <ArticleCard
+                      title={a.title}
+                      date={a.createdAt}
+                      name={a.dispName}
+                      content={a.content}
+                      href={`/articles/${a.id}`}
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
+            )}
+          </>
+        )}
+        {isLoading && (
+          <Box textAlign="center" mt={3}>
+            <CircularProgress aria-label="ローディング中" />
+          </Box>
         )}
       </Container>
     </>
   );
 };
 
-export const getStaticProps = async () => {
-  const articles = await getAllArticles();
-  const allMember = await getAllMember();
-  const contents = articles.contents.map((c) => {
-    return {
-      ...c,
-      dispName:
-        allMember.contents.find((m) => m.name === c.name)?.dispName ?? '',
-    };
+const EnhancedHome: NextPage = () => {
+  const { isLoading: isMemberLoading, members } = useAllMember();
+  const { isLoading: isArticleLoading, articles } = useArticles({
+    limit: '10000',
   });
-
-  return {
-    props: {
-      articles: {
+  const contents =
+    articles?.contents.map((c) => {
+      return {
+        ...c,
+        dispName:
+          members?.contents.find((m) => m.name === c.name)?.dispName ?? '',
+      };
+    }) ?? [];
+  const a = !articles
+    ? null
+    : {
         ...articles,
         contents,
-      },
-    },
-    revalidate: 30,
-  };
+      };
+  const isLoading = !!isMemberLoading && !!isArticleLoading;
+
+  return <Home articles={a} isLoading={isLoading} />;
 };
 
-export default Home;
+export default EnhancedHome;

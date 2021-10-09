@@ -11,7 +11,7 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useState, useContext, MouseEvent } from 'react';
-import { MemberContext } from 'hooks/useMemberStore';
+import { StoreContext } from 'hooks/useStore';
 
 type Props = {
   name: string;
@@ -81,7 +81,7 @@ const Header: FC<Props> = ({
 
 const EnhancedHeader: FC = () => {
   const router = useRouter();
-  const context = useContext(MemberContext);
+  const { store, storeDispatch } = useContext(StoreContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const isMenuOpen = !!anchorEl;
 
@@ -97,13 +97,13 @@ const EnhancedHeader: FC = () => {
   };
   const handleLogout = () => {
     localStorage.removeItem('MEMBER_NAME');
-    context?.memberDispatch({ type: 'DELETE', member: null });
+    storeDispatch({ type: 'UPDATE', payload: { name: 'member', value: null } });
     router.push('/login');
   };
 
   return (
     <Header
-      name={context?.member?.dispName ?? ''}
+      name={store.member?.dispName ?? ''}
       anchorEl={anchorEl}
       isMenuOpen={isMenuOpen}
       handleClickMenuBtn={handleClickMenu}

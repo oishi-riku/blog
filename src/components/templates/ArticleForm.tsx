@@ -11,12 +11,15 @@ import {
 } from '@mui/material';
 import { FC } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { AllMember } from 'domains/microCMS/models/member';
 import { Input } from 'validation/article';
 
 type Props = {
   name: string | null;
-  allMember: AllMember;
+  allMember: {
+    id: string;
+    name: string;
+    dispName: string;
+  }[];
   control: Control<Input>;
   handleSubmit: () => void;
   handleCancel: () => void;
@@ -99,7 +102,7 @@ const ArticleForm: FC<Props> = ({
                 onChange={field.onChange}
                 value={field.value}
               >
-                {allMember.contents.map((m) => (
+                {allMember.map((m) => (
                   <MenuItem key={m.id} value={m.name}>
                     {m.dispName}
                   </MenuItem>

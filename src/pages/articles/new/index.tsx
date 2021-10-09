@@ -3,19 +3,25 @@ import { Container, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { FC, useContext } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useForm, Control } from 'react-hook-form';
+import LoadingOverflow from 'components/atoms/LoadingOverflow';
 import ArticleForm from 'components/templates/ArticleForm';
 import { AllMember } from 'domains/microCMS/models/member';
 import { createArticle } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
-import { MemberContext } from 'hooks/useMemberStore';
+import { StoreContext } from 'hooks/useStore';
 import { Input, scheme } from 'validation/article';
 
 type Props = {
   name: string | null;
-  allMember: AllMember;
+  allMember: {
+    id: string;
+    name: string;
+    dispName: string;
+  }[];
   control: Control<Input>;
+  isLoading: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
 };
@@ -24,6 +30,7 @@ const NewArticle: FC<Props> = ({
   name,
   allMember,
   control,
+  isLoading,
   handleSubmit,
   handleCancel,
 }) => {
@@ -45,6 +52,7 @@ const NewArticle: FC<Props> = ({
           handleCancel={handleCancel}
         />
       </Container>
+      <LoadingOverflow isLoading={isLoading} />
     </>
   );
 };
@@ -52,8 +60,9 @@ const NewArticle: FC<Props> = ({
 const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
   allMember,
 }) => {
-  const context = useContext(MemberContext);
+  const { store, storeDispatch } = useContext(StoreContext);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
@@ -67,9 +76,18 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
-      if (!context || !context.member) throw new Error();
+      if (!store.member) throw new Error();
+      setIsLoading(true);
 
-      await createArticle({ ...payload, name: context.member.name });
+      await createArticle({ ...payload, name: store.member.name });
+      setIsLoading(false);
+      storeDispatch({
+        type: 'UPDATE',
+        payload: {
+          name: 'next',
+          value: payload.next,
+        },
+      });
       router.push('/');
     } catch (error) {
       window.alert('エラーが発生しました。');
@@ -82,9 +100,14 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 
   return (
     <NewArticle
-      name={context?.member?.dispName ?? null}
-      allMember={allMember}
+      name={store.member?.dispName ?? null}
+      allMember={allMember.contents.map((c) => ({
+        id: c.id,
+        name: c.name,
+        dispName: c.dispName,
+      }))}
       control={control}
+      isLoading={isLoading}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}
     />

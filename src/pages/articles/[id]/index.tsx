@@ -10,7 +10,7 @@ import ArticleArea from 'components/molecules/ArticleArea';
 import { Article as ArticleSingle } from 'domains/microCMS/models/article';
 import { getArticle, getAllArticles } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
-import { MemberContext } from 'hooks/useMemberStore';
+import { StoreContext } from 'hooks/useStore';
 
 type Props = {
   article: ArticleSingle;
@@ -47,9 +47,9 @@ const Article: FC<Props> = ({ article, isWriter }) => {
 };
 
 const EnhancedArticle: NextPage<Props> = ({ article: a }) => {
-  const context = useContext(MemberContext);
+  const { store } = useContext(StoreContext);
   const [article, setArticle] = useState(a);
-  const isWriter = context?.member?.name === article.name;
+  const isWriter = store.member?.name === article.name;
 
   const resetIsWriterArticle = useCallback(async () => {
     if (!isWriter) return;
