@@ -10,19 +10,26 @@ import {
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { FC, useContext } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useForm, Control, Controller } from 'react-hook-form';
+import LoadingOverflow from 'components/atoms/LoadingOverflow';
 import { updateSetting } from 'domains/microCMS/services/setting';
 import { MemberContext } from 'hooks/useMemberStore';
 import { Input, scheme } from 'validation/setting';
 
 type Props = {
   control: Control<Input>;
+  isLoading: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
 };
 
-const Setting: FC<Props> = ({ control, handleSubmit, handleCancel }) => {
+const Setting: FC<Props> = ({
+  control,
+  isLoading,
+  handleSubmit,
+  handleCancel,
+}) => {
   return (
     <>
       <Head>
@@ -73,6 +80,7 @@ const Setting: FC<Props> = ({ control, handleSubmit, handleCancel }) => {
           </Box>
         </form>
       </Container>
+      <LoadingOverflow isLoading={isLoading} />
     </>
   );
 };
@@ -81,6 +89,7 @@ const EnhancedSetting: NextPage = () => {
   const context = useContext(MemberContext);
   const router = useRouter();
   const query = router.query as { next?: string };
+  const [isLoading, setIsLoading] = useState(false);
 
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
@@ -93,12 +102,14 @@ const EnhancedSetting: NextPage = () => {
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
       if (!context || !context.member) throw new Error();
+      setIsLoading(true);
 
       await updateSetting({ id: context.member.id, payload });
       context.memberDispatch({
         type: 'SET',
         member: { id: context.member.id, ...payload },
       });
+      setIsLoading(false);
       router.push(query.next ?? '/');
     } catch (error) {
       window.alert('エラーが発生しました。');
@@ -112,6 +123,7 @@ const EnhancedSetting: NextPage = () => {
   return (
     <Setting
       control={control}
+      isLoading={isLoading}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}
     />

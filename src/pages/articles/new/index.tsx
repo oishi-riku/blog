@@ -3,8 +3,9 @@ import { Container, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { FC, useContext } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useForm, Control } from 'react-hook-form';
+import LoadingOverflow from 'components/atoms/LoadingOverflow';
 import ArticleForm from 'components/templates/ArticleForm';
 import { AllMember } from 'domains/microCMS/models/member';
 import { createArticle } from 'domains/microCMS/services/article';
@@ -20,6 +21,7 @@ type Props = {
     dispName: string;
   }[];
   control: Control<Input>;
+  isLoading: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
 };
@@ -28,6 +30,7 @@ const NewArticle: FC<Props> = ({
   name,
   allMember,
   control,
+  isLoading,
   handleSubmit,
   handleCancel,
 }) => {
@@ -49,6 +52,7 @@ const NewArticle: FC<Props> = ({
           handleCancel={handleCancel}
         />
       </Container>
+      <LoadingOverflow isLoading={isLoading} />
     </>
   );
 };
@@ -58,6 +62,7 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 }) => {
   const context = useContext(MemberContext);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
@@ -72,8 +77,10 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
       if (!context || !context.member) throw new Error();
+      setIsLoading(true);
 
       await createArticle({ ...payload, name: context.member.name });
+      setIsLoading(false);
       router.push('/');
     } catch (error) {
       window.alert('エラーが発生しました。');
@@ -93,6 +100,7 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
         dispName: c.dispName,
       }))}
       control={control}
+      isLoading={isLoading}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}
     />

@@ -4,9 +4,10 @@ import { Container, Typography, IconButton, Box } from '@mui/material';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { FC, useContext } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useForm, Control } from 'react-hook-form';
 
+import LoadingOverflow from 'components/atoms/LoadingOverflow';
 import ArticleForm from 'components/templates/ArticleForm';
 import { Article as ArticleSingle } from 'domains/microCMS/models/article';
 import { AllMember } from 'domains/microCMS/models/member';
@@ -29,6 +30,7 @@ type Props = {
     dispName: string;
   }[];
   control: Control<Input>;
+  isLoading: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
   handleDelete: () => void;
@@ -45,6 +47,7 @@ const EditArticle: FC<Props> = ({
   name,
   allMember,
   control,
+  isLoading,
   handleSubmit,
   handleCancel,
   handleDelete,
@@ -75,6 +78,7 @@ const EditArticle: FC<Props> = ({
           handleCancel={handleCancel}
         />
       </Container>
+      <LoadingOverflow isLoading={isLoading} />
     </>
   );
 };
@@ -82,6 +86,7 @@ const EditArticle: FC<Props> = ({
 const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
   const context = useContext(MemberContext);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
@@ -96,11 +101,13 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
       if (!context || !context.member) throw new Error();
+      setIsLoading(true);
 
       await updateArticle(article.id, {
         ...payload,
         name: context.member.name,
       });
+      setIsLoading(false);
       router.push(`/articles/${article.id}`);
     } catch (error) {
       window.alert('エラーが発生しました。');
@@ -114,7 +121,10 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
   const handleDelete = async () => {
     if (window.confirm('削除してよろしいでしょうか？')) {
       try {
+        setIsLoading(true);
+
         await deleteArticle(article.id);
+        setIsLoading(false);
         router.push('/');
       } catch (error) {
         window.alert('エラーが発生しました。');
@@ -132,6 +142,7 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
         dispName: c.dispName,
       }))}
       control={control}
+      isLoading={isLoading}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}
       handleDelete={handleDelete}
