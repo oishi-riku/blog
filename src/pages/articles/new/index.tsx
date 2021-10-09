@@ -10,7 +10,7 @@ import ArticleForm from 'components/templates/ArticleForm';
 import { AllMember } from 'domains/microCMS/models/member';
 import { createArticle } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
-import { MemberContext } from 'hooks/useMemberStore';
+import { StoreContext } from 'hooks/useStore';
 import { Input, scheme } from 'validation/article';
 
 type Props = {
@@ -60,7 +60,7 @@ const NewArticle: FC<Props> = ({
 const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
   allMember,
 }) => {
-  const context = useContext(MemberContext);
+  const { store } = useContext(StoreContext);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -76,10 +76,10 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
-      if (!context || !context.member) throw new Error();
+      if (!store.member) throw new Error();
       setIsLoading(true);
 
-      await createArticle({ ...payload, name: context.member.name });
+      await createArticle({ ...payload, name: store.member.name });
       setIsLoading(false);
       router.push('/');
     } catch (error) {
@@ -93,7 +93,7 @@ const EnhancedNewArticle: NextPage<{ allMember: AllMember }> = ({
 
   return (
     <NewArticle
-      name={context?.member?.dispName ?? null}
+      name={store.member?.dispName ?? null}
       allMember={allMember.contents.map((c) => ({
         id: c.id,
         name: c.name,

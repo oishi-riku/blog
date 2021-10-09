@@ -18,7 +18,7 @@ import {
   getAllArticles,
 } from 'domains/microCMS/services/article';
 import { getAllMember } from 'domains/microCMS/services/member';
-import { MemberContext } from 'hooks/useMemberStore';
+import { StoreContext } from 'hooks/useStore';
 import { Input, scheme } from 'validation/article';
 
 type Props = {
@@ -84,13 +84,13 @@ const EditArticle: FC<Props> = ({
 };
 
 const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
-  const context = useContext(MemberContext);
+  const { store } = useContext(StoreContext);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const { handleSubmit, control } = useForm<Input>({
     defaultValues: {
-      name: context?.member?.dispName ?? '',
+      name: store.member?.dispName ?? '',
       title: article.title,
       content: article.content,
       next: article.next,
@@ -100,12 +100,12 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
 
   const _handleSubmit = handleSubmit(async (payload) => {
     try {
-      if (!context || !context.member) throw new Error();
+      if (!store.member) throw new Error();
       setIsLoading(true);
 
       await updateArticle(article.id, {
         ...payload,
-        name: context.member.name,
+        name: store.member.name,
       });
       setIsLoading(false);
       router.push(`/articles/${article.id}`);
@@ -135,7 +135,7 @@ const EnhancedEditArticle: NextPage<StaticProps> = ({ article, allMember }) => {
   return (
     <EditArticle
       articleTitle={article.title}
-      name={context?.member?.dispName ?? null}
+      name={store.member?.dispName ?? null}
       allMember={allMember.contents.map((c) => ({
         id: c.id,
         name: c.name,
