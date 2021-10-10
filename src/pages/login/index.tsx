@@ -96,7 +96,7 @@ const EnhancedLogin: NextPage = () => {
         },
       });
       localStorage.setItem('MEMBER_NAME', name);
-      router.push('/');
+      void router.push('/');
     }
   });
 

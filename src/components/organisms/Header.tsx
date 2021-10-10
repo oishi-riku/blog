@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useState, useContext, MouseEvent } from 'react';
+
 import { StoreContext } from 'hooks/useStore';
 
 type Props = {
@@ -92,13 +93,16 @@ const EnhancedHeader: FC = () => {
     setAnchorEl(null);
   };
   const handleMoveSetting = () => {
-    router.push({ pathname: '/setting', query: { next: location.pathname } });
+    void router.push({
+      pathname: '/setting',
+      query: { next: location.pathname },
+    });
     handleCloseMenu();
   };
   const handleLogout = () => {
     localStorage.removeItem('MEMBER_NAME');
     storeDispatch({ type: 'UPDATE', payload: { name: 'member', value: null } });
-    router.push('/login');
+    void router.push('/login');
   };
 
   return (

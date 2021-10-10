@@ -1,24 +1,47 @@
 {
-    "extends": ["next", "next/core-web-vitals", "prettier"],
-    "plugins": ["unused-imports"],
+    "extends": [
+        "next",
+        "next/core-web-vitals",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": { "jsx": true },
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": ["@typescript-eslint", "unused-imports"],
     "rules": {
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
         "newline-before-return": "error",
         "import/order": [
             "error",
             {
                 "alphabetize": {
                     "order": "asc"
-                }
+                },
+                "newlines-between": "always"
             }
         ],
         "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": [
-            "warn",
+        "unused-imports/no-unused-vars": ["off"],
+        "@typescript-eslint/no-unused-vars": [
+            "error",
             {
                 "vars": "all",
                 "varsIgnorePattern": "^_",
                 "args": "after-used",
                 "argsIgnorePattern": "^_"
+            }
+        ],
+        "no-void": [
+            "error",
+            {
+                "allowAsStatement": true
             }
         ]
     }

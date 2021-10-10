@@ -1,58 +1,61 @@
 {
-  "name": "blog",
-  "version": "0.1.0",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://https://github.com/oishi-riku/blog.git"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
-  "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Edge versions",
-    "last 2 Firefox versions",
-    "last 2 Safari versions",
-    "last 2 iOS versions",
-    "last 2 Android major versions"
-  ],
-  "dependencies": {
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
-    "@hookform/resolvers": "^2.8.0",
-    "@mui/icons-material": "^5.0.1",
-    "@mui/material": "^5.0.1",
-    "@mui/styled-engine-sc": "^5.0.0",
-    "dayjs": "^1.10.7",
-    "next": "11.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-hook-form": "^7.15.3",
-    "react-intersection-observer": "^8.32.1",
-    "styled-components": "^5.3.1",
-    "swr": "^1.0.1",
-    "yup": "^0.32.9"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@storybook/addon-actions": "^6.3.9",
-    "@storybook/addon-essentials": "^6.3.9",
-    "@storybook/addon-links": "^6.3.9",
-    "@storybook/react": "^6.3.9",
-    "@types/react": "17.0.18",
-    "babel-loader": "^8.2.2",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-unused-imports": "^1.1.5",
-    "prettier": "^2.4.1",
-    "typescript": "4.3.5"
-  }
+    "name": "blog",
+    "version": "0.1.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://https://github.com/oishi-riku/blog.git"
+    },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'",
+        "storybook": "start-storybook -p 6006",
+        "build-storybook": "build-storybook"
+    },
+    "browserslist": [
+        "last 2 Chrome versions",
+        "last 2 Edge versions",
+        "last 2 Firefox versions",
+        "last 2 Safari versions",
+        "last 2 iOS versions",
+        "last 2 Android major versions"
+    ],
+    "dependencies": {
+        "@emotion/react": "^11.4.1",
+        "@emotion/styled": "^11.3.0",
+        "@hookform/resolvers": "^2.8.0",
+        "@mui/icons-material": "^5.0.1",
+        "@mui/material": "^5.0.1",
+        "@mui/styled-engine-sc": "^5.0.0",
+        "dayjs": "^1.10.7",
+        "next": "11.1.0",
+        "next-pwa": "^5.3.1",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-hook-form": "^7.15.3",
+        "react-intersection-observer": "^8.32.1",
+        "styled-components": "^5.3.1",
+        "swr": "^1.0.1",
+        "yup": "^0.32.9"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.15.5",
+        "@storybook/addon-actions": "^6.3.9",
+        "@storybook/addon-essentials": "^6.3.9",
+        "@storybook/addon-links": "^6.3.9",
+        "@storybook/react": "^6.3.9",
+        "@types/react": "17.0.18",
+        "@typescript-eslint/eslint-plugin": "^4.33.0",
+        "@typescript-eslint/parser": "^4.33.0",
+        "babel-loader": "^8.2.2",
+        "eslint": "7.32.0",
+        "eslint-config-next": "11.1.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-unused-imports": "^1.1.5",
+        "prettier": "^2.4.1",
+        "typescript": "4.3.5"
+    }
 }

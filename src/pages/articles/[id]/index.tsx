@@ -61,7 +61,7 @@ const EnhancedArticle: NextPage<Props> = ({ article: a }) => {
   }, [isWriter, a.id]);
 
   useEffect(() => {
-    resetIsWriterArticle();
+    void resetIsWriterArticle();
   }, [resetIsWriterArticle]);
 
   return <Article article={article} isWriter={isWriter} />;
