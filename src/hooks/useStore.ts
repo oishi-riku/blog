@@ -39,11 +39,16 @@ const reducer = (state: Store, action: Action) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const useStore = () => {
-  const [state, dispatch] = useReducer(reducer, {
-    member: null,
-    next: '',
-  });
+const useStore = (init?: Store) => {
+  const [state, dispatch] = useReducer(
+    reducer,
+    init
+      ? init
+      : {
+          member: null,
+          next: '',
+        }
+  );
 
   return { store: state, storeDispatch: dispatch };
 };
