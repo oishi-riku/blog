@@ -1,20 +1,18 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import LoadingOverflow from 'components/atoms/LoadingOverflow';
 
-describe('LoadingOverflow', () => {
-  const { getByRole, rerender, queryByRole } = render(
-    <LoadingOverflow isLoading={true} />
-  );
-
+describe('atoms/LoadingOverflow', () => {
   it('is Loading', () => {
+    render(<LoadingOverflow isLoading={true} />);
     expect(
-      getByRole('progressbar', { name: 'ローディング' })
+      screen.getByRole('progressbar', { name: 'ローディング' })
     ).toBeInTheDocument();
   });
+
   it('is not Loading', () => {
-    rerender(<LoadingOverflow isLoading={false} />);
-    expect(queryByRole('progressbar')).toBeNull();
+    render(<LoadingOverflow isLoading={false} />);
+    expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
   });
 });

@@ -26,7 +26,7 @@ jest.mock('next/router', () => ({
   },
 }));
 
-describe('Header', () => {
+describe('organisms/Header', () => {
   beforeEach(() => {
     render(<Header />, {
       wrapper: Wrapper,
@@ -53,6 +53,6 @@ describe('Header', () => {
     expect(logoutBtn).toBeInTheDocument();
 
     userEvent.click(logoutBtn);
-    expect(menuBtn.textContent).toBe('');
+    expect(menuBtn).toHaveTextContent('');
   });
 });
