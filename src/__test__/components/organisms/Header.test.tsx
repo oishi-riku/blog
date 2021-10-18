@@ -33,19 +33,19 @@ describe('organisms/Header', () => {
     });
   });
 
-  test('is display dispName', () => {
+  it('is display dispName', () => {
     const menuBtn = screen.getByRole('button', { name: '大石陸' });
     expect(menuBtn).toBeInTheDocument();
   });
 
-  test('menu interaction', () => {
+  it('menu interaction', () => {
     const menuBtn = screen.getByRole('button', { name: '大石陸' });
     userEvent.click(menuBtn);
 
     expect(screen.getByRole('menu')).toBeInTheDocument();
   });
 
-  test('logout', () => {
+  it('logout', () => {
     const menuBtn = screen.getByRole('button', { name: '大石陸' });
     userEvent.click(menuBtn);
 
