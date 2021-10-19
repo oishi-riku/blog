@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Components/Atoms/ArticleMeta Default 1`] = `
+<div
+  className="MuiBox-root css-1i27l4i"
+>
+  <time
+    className="MuiTypography-root MuiTypography-body1 css-14v54ys-MuiTypography-root"
+  >
+    2021/10/10 18:59:12
+  </time>
+  <span
+    className="MuiTypography-root MuiTypography-body1 css-14v54ys-MuiTypography-root"
+  >
+    大石陸
+  </span>
+</div>
+`;
+
+exports[`Storyshots Components/Atoms/TypographyRowControl Default 1`] = `
+<p
+  className="MuiTypography-root MuiTypography-body1 css-1c1kalq-MuiTypography-root"
+>
+  吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕えて煮て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始であろう。この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶だ。その後猫にもだいぶ逢ったがこんな片輪には一度も出会わした事がない。のみならず顔の真中があまりに突起している。そうしてその穴の中から時々ぷうぷうと煙を
+</p>
+`;
+
+exports[`Storyshots Components/Atoms/TypographyRowControl With New Line 1`] = `
+<p
+  className="MuiTypography-root MuiTypography-body1 css-1c1kalq-MuiTypography-root"
+>
+  
+    吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。
+
+    この書生というのは時々我々を捕えて煮て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始であろう。
+    この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶だ。その後猫にもだいぶ逢ったがこんな片輪には一度も出会わした事がない。のみならず顔の真中があまりに突起している。
+    そうしてその穴の中から時々ぷうぷ
+</p>
+`;
+
+exports[`Storyshots Components/Molecules/ArticleArea Default 1`] = `
+<p
+  className="MuiTypography-root MuiTypography-body1 css-te1fvh-MuiTypography-root"
+>
+  吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕えて煮て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始であろう。この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶だ。その後猫にもだいぶ逢ったがこんな片輪には一度も出会わした事がない。のみならず顔の真中があまりに突起している。そうしてその穴の中から時々ぷうぷうと煙を
+</p>
+`;
+
+exports[`Storyshots Components/Molecules/ArticleArea With New Line 1`] = `
+<p
+  className="MuiTypography-root MuiTypography-body1 css-te1fvh-MuiTypography-root"
+>
+  吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。
+
+  この書生というのは時々我々を捕えて煮て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始であろう。
+  この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶だ。その後猫にもだいぶ逢ったがこんな片輪には一度も出会わした事がない。のみならず顔の真中があまりに突起している。
+  そうしてその穴の中から時々ぷうぷ
+</p>
+`;
+
+exports[`Storyshots Components/Molecules/ArticleCard Default 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-zwt9xa-MuiPaper-root-MuiCard-root"
+>
+  <a
+    className="MuiButtonBase-root MuiCardActionArea-root css-1pz8km4-MuiButtonBase-root-MuiCardActionArea-root"
+    href="/hoge/fuga/piyo"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+  >
+    <div
+      className="MuiBox-root css-1wae3f5"
+    >
+      <div
+        className="MuiBox-root css-1upilqn"
+      >
+        <b
+          className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
+        >
+          ダミータイトル
+        </b>
+        <div
+          className="MuiBox-root css-1i27l4i"
+        >
+          <time
+            className="MuiTypography-root MuiTypography-body1 css-14v54ys-MuiTypography-root"
+          >
+            2021/10/10 18:59:12
+          </time>
+          <span
+            className="MuiTypography-root MuiTypography-body1 css-14v54ys-MuiTypography-root"
+          >
+            大石陸
+          </span>
+        </div>
+      </div>
+      <div
+        className="MuiBox-root css-10ci7o5"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-vkkem1-MuiTypography-root"
+        >
+          吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。この書生というのは時々我々を捕えて煮て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始であろう。この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶だ。その後猫にもだいぶ逢ったがこんな片輪には一度も出会わした事がない。のみならず顔の真中があまりに突起している。そうしてその穴の中から時々ぷうぷうと煙を
+        </p>
+      </div>
+      <p
+        className="MuiTypography-root MuiTypography-body2 MuiTypography-alignRight css-1glyh4b-MuiTypography-root"
+      >
+        続きを読む
+      </p>
+    </div>
+    <span
+      className="MuiCardActionArea-focusHighlight css-1v2exvi-MuiCardActionArea-focusHighlight"
+    />
+  </a>
+</div>
+`;
+
+exports[`Storyshots Components/Molecules/ArticleCard With New Line 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-zwt9xa-MuiPaper-root-MuiCard-root"
+>
+  <a
+    className="MuiButtonBase-root MuiCardActionArea-root css-1pz8km4-MuiButtonBase-root-MuiCardActionArea-root"
+    href="/hoge/fuga/piyo"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onContextMenu={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+  >
+    <div
+      className="MuiBox-root css-1wae3f5"
+    >
+      <div
+        className="MuiBox-root css-1upilqn"
+      >
+        <b
+          className="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
+        >
+          ダミータイトル 改行あり
+        </b>
+        <div
+          className="MuiBox-root css-1i27l4i"
+        >
+          <time
+            className="MuiTypography-root MuiTypography-body1 css-14v54ys-MuiTypography-root"
+          >
+            2021/10/10 18:59:12
+          </time>
+          <span
+            className="MuiTypography-root MuiTypography-body1 css-14v54ys-MuiTypography-root"
+          >
+            鈴木拓哉
+          </span>
+        </div>
+      </div>
+      <div
+        className="MuiBox-root css-10ci7o5"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-vkkem1-MuiTypography-root"
+        >
+          吾輩は猫である。名前はまだ無い。どこで生れたかとんと見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪な種族であったそうだ。
+
+    この書生というのは時々我々を捕えて煮て食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ちついて書生の顔を見たのがいわゆる人間というものの見始であろう。
+    この時妙なものだと思った感じが今でも残っている。第一毛をもって装飾されべきはずの顔がつるつるしてまるで薬缶だ。その後猫にもだいぶ逢ったがこんな片輪には一度も出会わした事がない。のみならず顔の真中があまりに突起している。
+    そうしてその穴の中から時々ぷうぷ
+        </p>
+      </div>
+      <p
+        className="MuiTypography-root MuiTypography-body2 MuiTypography-alignRight css-1glyh4b-MuiTypography-root"
+      >
+        続きを読む
+      </p>
+    </div>
+    <span
+      className="MuiCardActionArea-focusHighlight css-1v2exvi-MuiCardActionArea-focusHighlight"
+    />
+  </a>
+</div>
+`;
+
+exports[`Storyshots Components/Organisms/Footer Default 1`] = `
+<footer
+  className="MuiBox-root css-fxamye"
+>
+  <small>
+    2021 3-5 class.
+  </small>
+</footer>
+`;
+
+exports[`Storyshots Components/Organisms/Header Default 1`] = `
+<header
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionSticky css-7e0s21-MuiPaper-root-MuiAppBar-root"
+>
+  <div
+    className="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
+  >
+    <div
+      className="MuiBox-root css-152ziak"
+    >
+      <div
+        className="MuiBox-root css-0"
+      >
+        <a
+          aria-label="トップページ"
+          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-okdow8-MuiButtonBase-root-MuiIconButton-root"
+          href="/"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            data-testid="HomeIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+            />
+          </svg>
+        </a>
+      </div>
+      <div
+        className="MuiBox-root css-0"
+      >
+        <button
+          aria-controls="global-menu"
+          aria-expanded={false}
+          className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root css-1kkpk3h-MuiButtonBase-root-MuiButton-root"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          大石陸
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+`;

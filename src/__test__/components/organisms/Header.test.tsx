@@ -2,8 +2,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React, { FC } from 'react';
 
-import Header from 'components/organisms/Header';
+// import Header from 'components/organisms/Header';
 import useStore, { StoreContext } from 'hooks/useStore';
+import { Default } from 'stories/components/organisms/Header.stories';
 
 const Wrapper: FC = ({ children }) => {
   const { store, storeDispatch } = useStore({
@@ -28,7 +29,7 @@ jest.mock('next/router', () => ({
 
 describe('organisms/Header', () => {
   beforeEach(() => {
-    render(<Header />, {
+    render(<Default />, {
       wrapper: Wrapper,
     });
   });

@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import React from 'react';
+
 import Layout from 'components/templates/Layout';
 
 export default {
@@ -11,7 +11,7 @@ const Template: ComponentStory<typeof Layout> = (args) => (
   <Layout {...args}>コンテンツ</Layout>
 );
 
-export const Default = Template.bind({});
+export const Default = Template.bind({ args: {} });
 Default.args = {
   nextWriter: {
     name: 'takuya_suzuki',
