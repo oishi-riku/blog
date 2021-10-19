@@ -17,6 +17,39 @@ exports[`Storyshots Components/Atoms/ArticleMeta Default 1`] = `
 </div>
 `;
 
+exports[`Storyshots Components/Atoms/LoadingOverflow Default 1`] = `
+<div
+  className="MuiBox-root css-b9m82v"
+>
+  <span
+    aria-label="ローディング"
+    className="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-jhled2-MuiCircularProgress-root"
+    role="progressbar"
+    style={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+  >
+    <svg
+      className="MuiCircularProgress-svg css-1idz92c-MuiCircularProgress-svg"
+      viewBox="22 22 44 44"
+    >
+      <circle
+        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate css-176wh8e-MuiCircularProgress-circle"
+        cx={44}
+        cy={44}
+        fill="none"
+        r={20.2}
+        strokeWidth={3.6}
+        style={Object {}}
+      />
+    </svg>
+  </span>
+</div>
+`;
+
 exports[`Storyshots Components/Atoms/TypographyRowControl Default 1`] = `
 <p
   className="MuiTypography-root MuiTypography-body1 css-1c1kalq-MuiTypography-root"
