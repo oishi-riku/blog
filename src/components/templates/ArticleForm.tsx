@@ -22,16 +22,20 @@ type Props = {
     dispName: string;
   }[];
   control: Control<Input>;
+  isEdit?: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
+  handleRegisterDraft?: () => void;
 };
 
 const ArticleForm: FC<Props> = ({
   name,
   allMember,
   control,
+  isEdit = false,
   handleSubmit,
   handleCancel,
+  handleRegisterDraft,
 }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -114,15 +118,28 @@ const ArticleForm: FC<Props> = ({
           )}
         />
       </Paper>
-      <Box display="flex" flexDirection="row-reverse">
-        <Box ml={1}>
+      <Box display="flex" gap={1} flexDirection="row-reverse" flexWrap="wrap">
+        <Box>
           <Button variant="contained" color="primary" type="submit">
-            保存
+            投稿
           </Button>
         </Box>
-        <Button variant="outlined" color="primary" onClick={handleCancel}>
-          キャンセル
-        </Button>
+        {!isEdit && (
+          <Box>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleRegisterDraft}
+            >
+              下書き保存
+            </Button>
+          </Box>
+        )}
+        <Box>
+          <Button color="primary" onClick={handleCancel}>
+            キャンセル
+          </Button>
+        </Box>
       </Box>
     </form>
   );

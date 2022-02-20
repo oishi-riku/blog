@@ -71,6 +71,7 @@ const EditArticle: FC<Props> = ({
           name={name}
           allMember={allMember}
           control={control}
+          isEdit
           handleSubmit={handleSubmit}
           handleCancel={handleCancel}
         />

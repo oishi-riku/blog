@@ -4,12 +4,14 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC, useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm, Control } from 'react-hook-form';
 
 import LoadingOverflow from 'components/atoms/LoadingOverflow';
 import ArticleForm from 'components/templates/ArticleForm';
 import { AllMember } from 'domains/microCMS/models/member';
 import { createArticle } from 'domains/microCMS/services/article';
+import useDraftArticle from 'hooks/useDraftArticle';
 import { StoreContext } from 'hooks/useStore';
 import { Input, scheme } from 'validation/article';
 
@@ -26,6 +28,7 @@ type Props = {
   isLoading: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
+  handleRegisterDraft: () => void;
 };
 
 const NewArticle: FC<Props> = ({
@@ -35,6 +38,7 @@ const NewArticle: FC<Props> = ({
   isLoading,
   handleSubmit,
   handleCancel,
+  handleRegisterDraft,
 }) => {
   return (
     <>
@@ -52,6 +56,7 @@ const NewArticle: FC<Props> = ({
           control={control}
           handleSubmit={handleSubmit}
           handleCancel={handleCancel}
+          handleRegisterDraft={handleRegisterDraft}
         />
       </Container>
       <LoadingOverflow isLoading={isLoading} />
@@ -63,8 +68,9 @@ const EnhancedNewArticle: NextPage<StaticProps> = ({ allMember }) => {
   const { store, storeDispatch } = useContext(StoreContext);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { draftArtcile, updateDraft, deleteDraft } = useDraftArticle();
 
-  const { handleSubmit, control } = useForm<Input>({
+  const { handleSubmit, control, getValues, reset } = useForm<Input>({
     defaultValues: {
       name: '',
       title: '',
@@ -81,6 +87,7 @@ const EnhancedNewArticle: NextPage<StaticProps> = ({ allMember }) => {
 
       await createArticle({ ...payload, name: store.member.name });
       setIsLoading(false);
+      deleteDraft();
       storeDispatch({
         type: 'UPDATE',
         payload: {
@@ -94,9 +101,29 @@ const EnhancedNewArticle: NextPage<StaticProps> = ({ allMember }) => {
     }
   });
 
+  const handleRegisterDraft = () => {
+    const state = getValues();
+    if (state.content !== '') {
+      updateDraft(state);
+    } else {
+      deleteDraft();
+    }
+  };
+
   const handleCancel = () => {
     void router.push('/');
   };
+
+  useEffect(() => {
+    if (draftArtcile && window.confirm('下書きの続きから書き始めますか？')) {
+      reset(draftArtcile);
+    }
+    const timerId = setInterval(handleRegisterDraft, 1000 * 30); // 30秒おきに1回下書き保存する
+
+    return () => {
+      clearInterval(timerId);
+    };
+  }, []);
 
   return (
     <NewArticle
@@ -110,6 +137,7 @@ const EnhancedNewArticle: NextPage<StaticProps> = ({ allMember }) => {
       isLoading={isLoading}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}
+      handleRegisterDraft={handleRegisterDraft}
     />
   );
 };

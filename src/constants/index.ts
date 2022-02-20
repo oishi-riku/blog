@@ -1,0 +1,1 @@
+export const DRAFT_ARTICLE = 'DRAFT_ARTICLE';
