@@ -1,7 +1,7 @@
 import { Input } from 'validation/setting';
 
 const BASE_ENDPOINT = process.env.NEXT_PUBLIC_MICRO_CMS_BASE_ENDPOINT || '';
-const X_WRITE_API_KEY = process.env.NEXT_PUBLIC_X_WRITE_API_KEY || '';
+const X_MICROCMS_API_KEY = process.env.NEXT_PUBLIC_X_MICROCMS_API_KEY || '';
 
 export const updateSetting = async ({
   id,
@@ -13,7 +13,7 @@ export const updateSetting = async ({
   void (await fetch(`${BASE_ENDPOINT}/member/${id}`, {
     headers: {
       'content-type': 'application/json',
-      'X-WRITE-API-KEY': X_WRITE_API_KEY,
+      'X-MICROCMS-API-KEY': X_MICROCMS_API_KEY,
     },
     method: 'PATCH',
     body: JSON.stringify(payload),
