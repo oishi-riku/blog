@@ -25,7 +25,7 @@ type Props = {
   isEdit?: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
-  handleRegisterDraft?: () => void;
+  handleClickDraft?: () => void;
 };
 
 const ArticleForm: FC<Props> = ({
@@ -35,7 +35,7 @@ const ArticleForm: FC<Props> = ({
   isEdit = false,
   handleSubmit,
   handleCancel,
-  handleRegisterDraft,
+  handleClickDraft,
 }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -129,7 +129,7 @@ const ArticleForm: FC<Props> = ({
             <Button
               variant="outlined"
               color="primary"
-              onClick={handleRegisterDraft}
+              onClick={handleClickDraft}
             >
               下書き保存
             </Button>

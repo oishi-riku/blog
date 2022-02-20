@@ -28,7 +28,7 @@ type Props = {
   isLoading: boolean;
   handleSubmit: () => void;
   handleCancel: () => void;
-  handleRegisterDraft: () => void;
+  handleClickDraft: () => void;
 };
 
 const NewArticle: FC<Props> = ({
@@ -38,7 +38,7 @@ const NewArticle: FC<Props> = ({
   isLoading,
   handleSubmit,
   handleCancel,
-  handleRegisterDraft,
+  handleClickDraft,
 }) => {
   return (
     <>
@@ -56,7 +56,7 @@ const NewArticle: FC<Props> = ({
           control={control}
           handleSubmit={handleSubmit}
           handleCancel={handleCancel}
-          handleRegisterDraft={handleRegisterDraft}
+          handleClickDraft={handleClickDraft}
         />
       </Container>
       <LoadingOverflow isLoading={isLoading} />
@@ -101,13 +101,18 @@ const EnhancedNewArticle: NextPage<StaticProps> = ({ allMember }) => {
     }
   });
 
-  const handleRegisterDraft = () => {
+  const registerDraft = () => {
     const state = getValues();
     if (state.content !== '') {
       updateDraft(state);
     } else {
       deleteDraft();
     }
+  };
+
+  const handleClickDraft = () => {
+    registerDraft();
+    void router.push('/');
   };
 
   const handleCancel = () => {
@@ -118,12 +123,12 @@ const EnhancedNewArticle: NextPage<StaticProps> = ({ allMember }) => {
     if (draftArtcile && window.confirm('下書きの続きから書き始めますか？')) {
       reset(draftArtcile);
     }
-    const timerId = setInterval(handleRegisterDraft, 1000 * 30); // 30秒おきに1回下書き保存する
+    const timerId = setInterval(registerDraft, 1000 * 30); // 30秒おきに1回下書き保存する
 
     return () => {
       clearInterval(timerId);
     };
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <NewArticle
@@ -137,7 +142,7 @@ const EnhancedNewArticle: NextPage<StaticProps> = ({ allMember }) => {
       isLoading={isLoading}
       handleSubmit={_handleSubmit}
       handleCancel={handleCancel}
-      handleRegisterDraft={handleRegisterDraft}
+      handleClickDraft={handleClickDraft}
     />
   );
 };
