@@ -13,7 +13,12 @@
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
-    "plugins": ["@typescript-eslint", "unused-imports"],
+    "plugins": [
+        "@typescript-eslint",
+        "unused-imports",
+        "testing-library",
+        "jest-dom"
+    ],
     "rules": {
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
@@ -44,5 +49,14 @@
                 "allowAsStatement": true
             }
         ]
-    }
+    },
+    "overrides": [
+        {
+            "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+            "extends": [
+                "plugin:testing-library/react",
+                "plugin:jest-dom/recommended"
+            ]
+        }
+    ]
 }

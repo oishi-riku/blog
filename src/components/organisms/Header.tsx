@@ -87,6 +87,7 @@ const EnhancedHeader: FC = () => {
   const isMenuOpen = !!anchorEl;
 
   const handleClickMenu = (event: MouseEvent<HTMLButtonElement>) => {
+    event.currentTarget.setAttribute('id', 'test');
     setAnchorEl(event.currentTarget);
   };
   const handleCloseMenu = () => {
