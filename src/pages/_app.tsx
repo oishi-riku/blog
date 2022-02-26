@@ -5,9 +5,11 @@ import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useEffect, useCallback } from 'react';
 
+import GoogleAnalytics from 'components/templates/GoogleAnalytics';
 import Layout from 'components/templates/Layout';
 import useAllMember from 'hooks/useAllMember';
 import useNextWriter from 'hooks/useNextWriter';
+import usePageView from 'hooks/usePageView';
 import useStore, { StoreContext } from 'hooks/useStore';
 import theme from 'theme';
 
@@ -52,8 +54,11 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }: AppProps) => {
     checkAccount();
   }, [setNextWriter, checkAccount]);
 
+  usePageView();
+
   return (
     <ThemeProvider theme={theme}>
+      <GoogleAnalytics />
       <CssBaseline />
       <StoreContext.Provider value={{ store, storeDispatch }}>
         {(store.member || pathname === '/login') && (
